@@ -2,7 +2,7 @@
 <QuickRunSetting>
   <Item Name="QuickRun选项">
     <Item Name="打开配置目录" Uri="%APPDATA%\QuickRun\" />
-    <Item Name="打开Github" Uri="https://github.com/Zaeworks" />
+    <Item Name="打开Github" Uri="https://github.com/Zaeworks/QuickRun" />
     <Item Name="&lt;返回" Type="BackButton" />
   </Item>
 </QuickRunSetting>
