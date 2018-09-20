@@ -26,6 +26,9 @@ namespace QuickRun.Setting
 
         [Name("允许拖拽")]
         public bool AllowDrop { get; set; } = false;
+
+        [Name("可用")]
+        public bool Enabled { get; set; } = true;
     }
 
     internal class NameAttribute : Attribute

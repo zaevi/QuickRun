@@ -101,7 +101,7 @@ namespace QuickRun.Setting
                         xroot.Add(BuildAction(item));
                     }
                     item.Key = btn.Tag.ToString();
-                    sp.Children.Add(btn);
+                    if(item.Enabled) sp.Children.Add(btn);
                 }
                 return sp;
             }
