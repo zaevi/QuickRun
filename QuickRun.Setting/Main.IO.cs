@@ -85,6 +85,7 @@ namespace QuickRun.Setting
                 {
                     var item = ItemMap[tvi];
                     var btn = new Button() { Content = item.Name };
+                    if (item.AllowDrop) btn.AllowDrop = true;
                     if(tvi.HasItems)
                     {
                         btn.Tag = ForItem(tvi, sp).Tag;
@@ -112,7 +113,9 @@ namespace QuickRun.Setting
             xroot.Save(basePath + ".map.xml");
             using (var f = System.Xml.XmlWriter.Create(basePath + ".xaml", new System.Xml.XmlWriterSettings { Indent=true}))
             {
-                XamlWriter.Save(spRoot, f);
+                // for dependency object
+                var manager = new XamlDesignerSerializationManager(f);
+                XamlWriter.Save(spRoot, manager);
             }
         }
     }

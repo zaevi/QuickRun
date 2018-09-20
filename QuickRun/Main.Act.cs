@@ -23,12 +23,12 @@ namespace QuickRun
     partial class Main : Window
     {
 
-        public void Action_RunAction(string key)
+        public void Action_RunAction(string key, string arguments=null)
         {
             if (Map.TryGetValue(key, out string uri))
             {
                 uri = Environment.ExpandEnvironmentVariables(uri);
-                Process.Start(uri);
+                Process.Start(uri, arguments);
             }
             this.Hide();
         }
@@ -50,6 +50,11 @@ namespace QuickRun
                 foreach (var btn in panel.FindVisualChildren<Button>())
                 {
                     btn.Click += Button_Click;
+                    if(btn.AllowDrop)
+                    {
+                        //btn.PreviewDragOver += Btn_PreviewDragOver;
+                        btn.PreviewDrop += Btn_PreviewDrop;
+                    }
                 }
                 foreach (Panel sp in panel.Children)
                     Folder.Add(sp.Tag.ToString(), sp);

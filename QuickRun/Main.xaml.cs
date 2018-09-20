@@ -58,6 +58,24 @@ namespace QuickRun
             }
         }
 
+        private void Btn_PreviewDragOver(object sender, DragEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void Btn_PreviewDrop(object sender, DragEventArgs e)
+        {
+            if(e.Data.GetFormats().Contains("FileName"))
+            {
+                var files = (string[])e.Data.GetData(DataFormats.FileDrop);
+                var btn = (sender as Button);
+                if (btn.Tag is string tag && tag.StartsWith("A"))
+                {
+                    Action_RunAction(tag, string.Join(" ", files.Select(f => "\"" + f + "\"")));
+                }
+            }
+        }
+
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             Action_LoadStyles(AppData + "styles.xaml");
