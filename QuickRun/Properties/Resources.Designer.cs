@@ -79,5 +79,20 @@ namespace QuickRun.Properties {
                 return ((System.Drawing.Icon)(obj));
             }
         }
+        
+        /// <summary>
+        ///   查找类似 &lt;ResourceDictionary xmlns=&quot;http://schemas.microsoft.com/winfx/2006/xaml/presentation&quot;&gt;
+        ///    &lt;Style TargetType=&quot;Button&quot; &gt;
+        ///        &lt;Setter Property=&quot;Padding&quot; Value=&quot;5&quot;/&gt;
+        ///        &lt;Setter Property=&quot;Background&quot; Value=&quot;White&quot;/&gt;
+        ///        &lt;Setter Property=&quot;BorderThickness&quot; Value=&quot;0&quot;/&gt;
+        ///    &lt;/Style&gt;
+        ///&lt;/ResourceDictionary&gt; 的本地化字符串。
+        /// </summary>
+        internal static string styles {
+            get {
+                return ResourceManager.GetString("styles", resourceCulture);
+            }
+        }
     }
 }

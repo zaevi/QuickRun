@@ -33,17 +33,22 @@ namespace QuickRun
             this.Hide();
         }
 
-        public void Action_LoadStyles(string stylePath)
+        public void Action_LoadStyles(string fileName)
         {
-            using (var fs = File.OpenRead(stylePath))
-            {
-                Resources = XamlReader.Load(fs) as ResourceDictionary;
-            }
+            var path = Util.GetExistingPath(fileName, ".", AppData);
+            if (path != null)
+                using (var fs = File.OpenRead(path))
+                    Resources = XamlReader.Load(fs) as ResourceDictionary;
+            else
+                Resources = XamlReader.Parse(Properties.Resources.styles) as ResourceDictionary;
         }
 
-        public void Action_LoadItems(string itemPath, string mapPath)
+        public bool Action_LoadItems(string itemPath, string mapPath)
         {
             Folder.Clear();
+            itemPath = Util.GetExistingPath(itemPath, ".", AppData);
+            mapPath = Util.GetExistingPath(mapPath, ".", AppData);
+            if (itemPath is null || mapPath is null) return false;
             using (var fs = File.OpenRead(itemPath))
             {
                 var panel = XamlReader.Load(fs) as StackPanel;
@@ -73,6 +78,7 @@ namespace QuickRun
             }
 
             Action_ShowFolder("#0");
+            return true;
         }
 
         Stack<string> FolderHistory = new Stack<string>();

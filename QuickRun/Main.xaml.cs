@@ -26,11 +26,9 @@ namespace QuickRun
     /// </summary>
     public partial class Main : Window
     {
-#if DEBUG
-        readonly string AppData = Environment.ExpandEnvironmentVariables(@".\");
-#else
+
         readonly string AppData = Environment.ExpandEnvironmentVariables(@"%APPDATA%\QuickRun\");
-#endif
+
         public Dictionary<string, string> Map = new Dictionary<string, string>();
         public Dictionary<string, Panel> Folder = new Dictionary<string, Panel>();
 
@@ -78,8 +76,8 @@ namespace QuickRun
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            Action_LoadStyles(AppData + "styles.xaml");
-            Action_LoadItems(AppData + "design.xaml", AppData + "design.map.xml");
+            Action_LoadStyles("styles.xaml");
+            Action_LoadItems("design.xaml", "design.map.xml");
             ShowInTaskbar = false;
 
             Notify = new Forms.NotifyIcon() {

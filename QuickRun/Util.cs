@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using System.Windows;
 using System.Windows.Media;
 using System.Xml.Linq;
@@ -29,5 +31,8 @@ namespace QuickRun
                 return attr.Value;
             return defaultValue;
         }
+
+        public static string GetExistingPath(string fileName, params string[] folderPath)
+            => folderPath.Select(f => Path.Combine(f, fileName)).Where(f => File.Exists(f)).FirstOrDefault();
     }
 }
