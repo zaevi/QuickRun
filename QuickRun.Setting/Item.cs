@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 using System.Xml.Linq;
 
 namespace QuickRun.Setting
@@ -42,10 +45,12 @@ namespace QuickRun.Setting
     {
         static Item DefaultItem = new Item();
 
+        static Dictionary<string, PropertyInfo> Properties = typeof(Item).GetProperties().ToDictionary(p => p.Name, p => p);
+
         public static XElement ToXElement(this Item item)
         {
             var xe = new XElement("Item");
-            foreach(var p in item.GetType().GetProperties())
+            foreach(var p in Properties.Values)
             {
                 var v = p.GetValue(item);
                 if ((v is string vs && string.IsNullOrEmpty(vs)) || v.Equals(p.GetValue(DefaultItem))) continue;
@@ -57,16 +62,15 @@ namespace QuickRun.Setting
         public static Item FromXElement(this XElement xElement)
         {
             var item = new Item();
-            foreach(var attr in xElement.Attributes())
+            foreach (var attr in xElement.Attributes())
             {
-                var p = typeof(Item).GetProperty(attr.Name.LocalName);
-                if (p is null) continue;
-                object value;
-                if(p.PropertyType.IsEnum)
-                    value = Enum.Parse(p.PropertyType, attr.Value);
-                else
-                    value = Convert.ChangeType(attr.Value, p.PropertyType);
-                p.SetValue(item, value);
+                if (!Properties.TryGetValue(attr.Name.LocalName, out var p)) continue;
+                p.SetValue(item, p.PropertyType.Parse(attr.Value));
+            }
+            foreach(var elem in xElement.Elements()?.Where(e=>Properties.ContainsKey(e.Name.LocalName)))
+            {
+                var p = Properties[elem.Name.LocalName];
+                p.SetValue(item, p.PropertyType.Parse(elem.Value));
             }
             return item;
         }
