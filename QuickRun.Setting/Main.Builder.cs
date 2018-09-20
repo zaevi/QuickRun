@@ -17,24 +17,65 @@ namespace QuickRun.Setting
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
-            var tag = (sender as MenuItem).Tag;
+            var tag = (sender as MenuItem).Tag.ToString();
             switch(tag)
             {
                 case "New":
-                    Action_New();
-                    break;
-                case "Open":
-                    if(!System.IO.File.Exists(AppData+"design.xml"))
-                        Action_SaveTemplate(AppData + "design.xml", AppData + "styles.xml");
-                    Action_Load(AppData + "design.xml");
+                    Action_Load();
                     break;
                 case "Save":
-                    Action_Save(AppData + "design.xml");
-                    break;
-                case "SaveAs":
+                    if (FilePath is null) break;
+                    Action_Save(FilePath);
                     break;
                 case "Build":
-                    Action_Build(AppData + "design.xml");
+                    if (FilePath is null)
+                    {
+                        MessageBox.Show("请先另存文件!");
+                        break;
+                    }
+                    if (Modified) Action_Save(FilePath);
+                    Action_Build(FilePath);
+                    break;
+                default:
+                    if(tag.StartsWith("Open"))
+                    {
+                        string path = null;
+                        switch(tag)
+                        {
+                            case "OpenLocal":path = Util.GetExistingPath("design.xml", ".");break;
+                            case "OpenAppData":path = Util.GetExistingPath("design.xml", AppData);break;
+                        }
+                        if (path == null)
+                            MessageBox.Show("文件不存在!");
+                        else
+                            Action_Load(path);
+                    }
+                    else if(tag.StartsWith("SaveAs"))
+                    {
+                        string path = null;
+                        switch (tag)
+                        {
+                            case "SaveAsLocal": path = @".\" + "design.xml"; break;
+                            case "SaveAsAppData": path = AppData + "design.xml"; break;
+                        }
+                        if(System.IO.File.Exists(path))
+                            if (MessageBox.Show("覆盖现有配置?", "", MessageBoxButton.YesNo) != MessageBoxResult.Yes)
+                                break;
+                        Action_Save(path);
+                    }
+                    else if(tag.StartsWith("StyleTo"))
+                    {
+                        string path = null;
+                        switch(tag)
+                        {
+                            case "StyleToLocal": path = @".\" + "styles.xaml"; break;
+                            case "StyleToAppData": path = AppData + "styles.xaml"; break;
+                        }
+                        if (System.IO.File.Exists(path))
+                            if (MessageBox.Show("覆盖现有样式?", "", MessageBoxButton.YesNo) != MessageBoxResult.Yes)
+                                break;
+                        Action_ExportStyleTemplate(path);
+                    }
                     break;
             }
         }
@@ -65,7 +106,15 @@ namespace QuickRun.Setting
         {
             foreach(var pair in PropertyMap)
             {
-                pair.Key.SetValue(item, pair.Value.GetValue());
+                var oldValue = pair.Key.GetValue(item);
+                var newValue = pair.Value.GetValue();
+                if (pair.Key.PropertyType.IsEnum)
+                    newValue = Enum.ToObject(pair.Key.PropertyType, newValue);
+                if(!oldValue.Equals(newValue))
+                {
+                    Modified = true;
+                    pair.Key.SetValue(item, newValue);
+                }
             }
         }
 
@@ -109,31 +158,40 @@ namespace QuickRun.Setting
         public Func<object> GetValue;
         public Action<object> SetValue;
 
+        public event EventHandler ValueModified;
+
+        private void ElementModified(object s, EventArgs e)
+            => ValueModified?.Invoke(s, e);
+
         public FrameworkElement Element;
         
         public PropertyValue(Type type)
         {
             if(type == typeof(string))
             {
-                Element = new TextBox();
-                GetValue = () => (Element as TextBox).Text;
-                SetValue = (t) => (Element as TextBox).Text = t?.ToString();
+                var element = new TextBox();
+                element.TextInput += ElementModified;
+                GetValue = () => element.Text;
+                SetValue = (t) => element.Text = t?.ToString();
+                Element = element;
             }
             else if(type == typeof(bool))
             {
-                Element = new CheckBox();
-                GetValue = () => (Element as CheckBox).IsChecked;
-                SetValue = (c) => (Element as CheckBox).IsChecked = (bool)c;
+                var element = new CheckBox();
+                element.Click += ElementModified;
+                GetValue = () => element.IsChecked;
+                SetValue = (c) => element.IsChecked = (bool)c;
+                Element = element;
             }
             else if(type.IsEnum)
             {
-                Element = new ComboBox();
+                var element = new ComboBox();
+                element.SelectionChanged += ElementModified;
                 foreach(var name in Enum.GetNames(type))
-                {
-                    (Element as ComboBox).Items.Add(new ComboBoxItem() { Content = name });
-                }
-                GetValue = () => (Element as ComboBox).SelectedIndex;
-                SetValue = (t) => (Element as ComboBox).SelectedIndex = (int)t;
+                    element.Items.Add(new ComboBoxItem() { Content = name });
+                GetValue = () => element.SelectedIndex;
+                SetValue = (t) => element.SelectedIndex = (int)t;
+                Element = element;
             }
         }
     }

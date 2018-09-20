@@ -13,16 +13,13 @@ namespace QuickRun.Setting
     /// </summary>
     public partial class Main : Window
     {
-        public void Action_SaveTemplate(string designPath, string stylePath)
-        {
-            File.WriteAllText(designPath, Properties.Resources.design);
-            File.WriteAllText(stylePath, Properties.Resources.styles);
-        }
+        public void Action_ExportStyleTemplate(string path)
+            => File.WriteAllText(path, Properties.Resources.styles);
 
-        public void Action_Load(string path)
+        public void Action_Load(string path=null)
         {
             Action_Close();
-            var root = XElement.Load(path);
+            var root = path != null ? XElement.Load(path) : XElement.Parse(Properties.Resources.design);
             
             void ForItem(XElement xparent, ItemsControl parent)
             {
@@ -38,6 +35,9 @@ namespace QuickRun.Setting
             }
 
             ForItem(root, treeView);
+
+            FilePath = path;
+            Modified = false;
         }
 
         public void Action_Save(string path)
@@ -58,6 +58,9 @@ namespace QuickRun.Setting
             }
 
             ForItem(treeView).Save(path);
+
+            FilePath = path;
+            Modified = false;
         }
 
         public void Action_Build(string path)

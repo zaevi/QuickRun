@@ -1,4 +1,6 @@
 ﻿using System;
+using System.IO;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -33,5 +35,8 @@ namespace QuickRun.Setting
                 return Enum.Parse(type, value);
             return Convert.ChangeType(value, type);
         }
+
+        public static string GetExistingPath(string fileName, params string[] folderPath)
+            => folderPath.Select(f => Path.Combine(f, fileName)).Where(f => File.Exists(f)).FirstOrDefault();
     }
 }

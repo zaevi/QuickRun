@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:QuickRun.Setting"
         mc:Ignorable="d"
-        Title="QuickRun Setting" Height="450" Width="400">
+        Title="QuickRun配置" Height="450" Width="400">
     <Window.Resources>
         <Style TargetType="TreeViewItem">
             <Setter Property="BorderBrush" Value="Black"/>
@@ -14,12 +14,24 @@
     <DockPanel>
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="文件" Padding="5,0">
-                <!--<MenuItem Tag="New" Header="新建" Click="MenuItem_Click"/>-->
-                <MenuItem Tag="Open" Header="打开" Click="MenuItem_Click"/>
-                <MenuItem Tag="Save" Header="保存" Click="MenuItem_Click"/>
-                <!--<MenuItem Tag="SaveAs" Header="另存为" Click="MenuItem_Click"/>-->
+                <MenuItem Tag="New" Header="新建" Click="MenuItem_Click"/>
+                <MenuItem Header="打开">
+                    <MenuItem Tag="OpenLocal" Header="本地配置" Click="MenuItem_Click"/>
+                    <MenuItem Tag="OpenAppData" Header="AppData配置" Click="MenuItem_Click"/>
+                </MenuItem>
+                <MenuItem x:Name="menuSave" Tag="Save" Header="保存" Click="MenuItem_Click"/>
+                <MenuItem Header="另存为">
+                    <MenuItem Tag="SaveAsLocal" Header="本地配置" Click="MenuItem_Click"/>
+                    <MenuItem Tag="SaveAsAppData" Header="AppData配置" Click="MenuItem_Click"/>
+                </MenuItem>
                 <Separator/>
                 <MenuItem Tag="Build" Header="生成" Click="MenuItem_Click"/>
+            </MenuItem>
+            <MenuItem Header="样式" Padding="5,0">
+                <MenuItem Header="导出样式模板">
+                    <MenuItem Tag="StyleToLocal" Header="至本地" Click="MenuItem_Click"/>
+                    <MenuItem Tag="StyleToAppData" Header="至AppData" Click="MenuItem_Click"/>
+                </MenuItem>
             </MenuItem>
         </Menu>
         <Grid>

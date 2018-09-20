@@ -20,25 +20,32 @@ namespace QuickRun.Setting
     /// </summary>
     public partial class Main : Window
     {
-        bool Modified;
-        string FilePath = null;
 
-#if DEBUG
-        readonly string AppData = Environment.ExpandEnvironmentVariables(@".\");
-#else
         readonly string AppData = Environment.ExpandEnvironmentVariables(@"%APPDATA%\QuickRun\");
-#endif
 
         Dictionary<TreeViewItem, Item> ItemMap = new Dictionary<TreeViewItem, Item>();
 
         public Main()
             => InitializeComponent();
 
-
-        public void Action_New()
+        private bool _Modified;
+        public bool Modified
         {
-            Action_Close();
+            get => _Modified; set
+            {
+                _Modified = value;
+                Title = (_Modified ? "*" : "") + "QuickRun配置 - " + (_FilePath ?? "New");
+            }
+        }
 
+        private string _FilePath;
+        public string FilePath
+        {
+            get => _FilePath; set
+            {
+                _FilePath = value;
+                menuSave.IsEnabled = !(_FilePath is null);
+            }
         }
 
         public void Action_Close()
