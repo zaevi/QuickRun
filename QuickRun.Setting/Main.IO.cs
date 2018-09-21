@@ -23,13 +23,13 @@ namespace QuickRun.Setting
             
             void ForItem(XElement xparent, ItemsControl parent)
             {
-                foreach(var xe in xparent.Elements("Item"))
+                foreach(var xe in xparent.Elements(nameof(Item)))
                 {
                     var item = xe.FromXElement();
                     var treeItem = new TreeViewItem() { Header = item.Name };
                     ItemMap[treeItem] = item;
                     parent.Items.Add(treeItem);
-                    if (xe.Element("Item")!=null)
+                    if (xe.Element(nameof(Item))!=null)
                         ForItem(xe, treeItem);
                 }
             }

@@ -49,7 +49,7 @@ namespace QuickRun.Setting
 
         public static XElement ToXElement(this Item item)
         {
-            var xe = new XElement("Item");
+            var xe = new XElement(nameof(Item));
             foreach(var p in Properties.Values)
             {
                 var v = p.GetValue(item);
