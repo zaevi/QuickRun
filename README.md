@@ -3,6 +3,8 @@
 
 这是一个追求简洁的快捷启动器, 你可以将文件/应用程序/网页URL等添加至程序中; 它们实际上会变成一个个按钮, 这之后你可以对按钮的行为进行自定义, 同时也能对样式进行有限的修改.
 
+目前版本: 0.5.5 - [更新日志](ChangeLog.md)
+
 ## 文件
 - QuickRun - 程序本体
 - QuickRun.Setting - 编辑器, 用来初始化+编辑+生成(Todo:弱化这玩意)
@@ -19,7 +21,7 @@
 <QuickRunSetting>
   <Item Name="QuickRun选项">
     <Item Name="打开配置目录" Uri="%APPDATA%\QuickRun\" />
-    <Item Name="打开Github" Uri="https://github.com/Zaeworks" />
+    <Item Name="打开Github" Uri="https://github.com/Zaeworks/QuickRun" />
     <Item Name="&lt;返回" Type="BackButton" />
   </Item>
 </QuickRunSetting>
