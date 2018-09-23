@@ -29,7 +29,7 @@ namespace QuickRun
 
         readonly string AppData = Environment.ExpandEnvironmentVariables(@"%APPDATA%\QuickRun\");
 
-        public Dictionary<string, string> Map = new Dictionary<string, string>();
+        public Dictionary<string, Item> Map = new Dictionary<string, Item>();
         public Dictionary<string, Panel> Folder = new Dictionary<string, Panel>();
 
         string CurrentFolder = null;
@@ -49,7 +49,11 @@ namespace QuickRun
                     Action_ShowFolder(tag);
                     title.Content = (sender as Button).Content;
                 }
-                else if(tag.StartsWith("A"))
+                else if(tag.StartsWith("$"))
+                {
+                    
+                }
+                else
                 {
                     Action_RunAction(tag);
                 }
@@ -90,7 +94,9 @@ namespace QuickRun
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             Action_LoadStyles("styles.xaml");
-            Action_LoadItems("design.xaml", "design.map.xml");
+            Action_Load("design.xml");
+            Action_ShowFolder("#0");
+
             ShowInTaskbar = false;
 
             Notify = new Forms.NotifyIcon() {

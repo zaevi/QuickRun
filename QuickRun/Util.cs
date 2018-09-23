@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Windows;
@@ -34,5 +35,12 @@ namespace QuickRun
 
         public static string GetExistingPath(string fileName, params string[] folderPath)
             => folderPath.Select(f => Path.Combine(f, fileName)).Where(f => File.Exists(f)).FirstOrDefault();
+
+        public static object Parse(this Type type, string value)
+        {
+            if (type.IsEnum)
+                return Enum.Parse(type, value);
+            return Convert.ChangeType(value, type);
+        }
     }
 }

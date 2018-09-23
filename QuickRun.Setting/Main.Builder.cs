@@ -27,15 +27,6 @@ namespace QuickRun.Setting
                     if (FilePath is null) break;
                     Action_Save(FilePath);
                     break;
-                case "Build":
-                    if (FilePath is null)
-                    {
-                        MessageBox.Show("请先另存文件!");
-                        break;
-                    }
-                    if (Modified) Action_Save(FilePath);
-                    Action_Build(FilePath);
-                    break;
                 default:
                     if(tag.StartsWith("Open"))
                     {

@@ -61,6 +61,26 @@ namespace QuickRun.Properties {
         }
         
         /// <summary>
+        ///   查找类似 &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+        ///&lt;QuickRunSetting&gt;
+        ///  &lt;Item Name=&quot;快速访问&quot;&gt;
+        ///    &lt;Item Name=&quot;Temp&quot; Uri=&quot;C:\Users\zaevi\Temp&quot; /&gt;
+        ///    &lt;Item Name=&quot;zaevi&quot; Uri=&quot;C:\Users\zaevi\&quot; /&gt;
+        ///    &lt;Item Name=&quot;ithome&quot; Uri=&quot;shell:AppsFolder\CEF5787D.IT_tjw031c2n34qp!App&quot; /&gt;
+        ///    &lt;Item Name=&quot;Back&quot; Type=&quot;BackButton&quot; /&gt;
+        ///  &lt;/Item&gt;
+        ///  &lt;Item Name=&quot;QuickRun选项&quot;&gt;
+        ///    &lt;Item Name=&quot;打开配置目录&quot; Uri=&quot;%APPDATA%\QuickRun\&quot; /&gt;
+        ///    &lt;Item Name=&quot;打开Github&quot; Uri=&quot;https://github.com/Zaeworks/QuickRun&quot; /&gt;
+        ///    &lt;Item Name=&quot;Back&quot; Type=&quot;BackButton&quot; [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        /// </summary>
+        internal static string design {
+            get {
+                return ResourceManager.GetString("design", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
         /// </summary>
         internal static System.Drawing.Icon icon {

@@ -25,9 +25,9 @@ namespace QuickRun
 
         public void Action_RunAction(string key, string arguments=null)
         {
-            if (Map.TryGetValue(key, out string uri))
+            if (Map.TryGetValue(key, out var item))
             {
-                uri = Environment.ExpandEnvironmentVariables(uri);
+                var uri = Environment.ExpandEnvironmentVariables(item.Uri);
                 Process.Start(uri, arguments);
             }
             this.Hide();
@@ -77,7 +77,7 @@ namespace QuickRun
                 switch (action.GetAttribute("Type"))
                 {
                     case "Uri":
-                        Map.Add(action.GetAttribute("Key"), action.GetAttribute("Uri"));
+                        //Map.Add(action.GetAttribute("Key"), action.GetAttribute("Uri"));
                         break;
                 }
             }

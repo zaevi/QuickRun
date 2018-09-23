@@ -60,7 +60,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Item.cs" />
     <Compile Include="Main.Act.cs" />
+    <Compile Include="Main.IO.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -112,6 +114,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\icon_notify.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\design.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

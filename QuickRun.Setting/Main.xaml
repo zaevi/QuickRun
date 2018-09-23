@@ -24,8 +24,6 @@
                     <MenuItem Tag="SaveAsLocal" Header="本地配置" Click="MenuItem_Click"/>
                     <MenuItem Tag="SaveAsAppData" Header="AppData配置" Click="MenuItem_Click"/>
                 </MenuItem>
-                <Separator/>
-                <MenuItem Tag="Build" Header="生成" Click="MenuItem_Click"/>
             </MenuItem>
             <MenuItem Header="样式" Padding="5,0">
                 <MenuItem Header="导出样式模板">
