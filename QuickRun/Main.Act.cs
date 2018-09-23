@@ -60,6 +60,11 @@ namespace QuickRun
                         //btn.PreviewDragOver += Btn_PreviewDragOver;
                         btn.PreviewDrop += Btn_PreviewDrop;
                     }
+                    if (btn.Tag.ToString().StartsWith("#"))
+                    {
+                        btn.AllowDrop = true;
+                        btn.PreviewDragOver += Btn_PreviewDragOver;
+                    }
                 }
                 foreach (Panel sp in panel.Children)
                     Folder.Add(sp.Tag.ToString(), sp);

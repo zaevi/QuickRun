@@ -56,9 +56,22 @@ namespace QuickRun
             }
         }
 
+
+        private Button DragOverTarget = null;
+        private int DragOverStartTime;
+
         private void Btn_PreviewDragOver(object sender, DragEventArgs e)
         {
-            throw new NotImplementedException();
+            if (!(sender is Button btn)) return;
+            if(DragOverTarget != sender)
+            {
+                DragOverTarget = btn;
+                DragOverStartTime = Environment.TickCount;
+            }
+            if (Environment.TickCount - DragOverStartTime > 500)
+            {
+                DragOverTarget.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+            }
         }
 
         private void Btn_PreviewDrop(object sender, DragEventArgs e)
@@ -92,6 +105,10 @@ namespace QuickRun
             var area = SystemParameters.WorkArea;
             Top = area.Bottom - Height - 20;
             Left = area.Right - Width - 20;
+
+            backBtn.AllowDrop = true;
+            backBtn.PreviewDragOver += Btn_PreviewDragOver;
+            Topmost = true;
         }
 
         private void TitleBar_Loaded(object sender, RoutedEventArgs e)
