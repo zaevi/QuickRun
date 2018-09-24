@@ -28,9 +28,17 @@ namespace QuickRun
             if (Map.TryGetValue(key, out var item))
             {
                 var uri = Environment.ExpandEnvironmentVariables(item.Uri);
-                Process.Start(uri, arguments);
+                try
+                {
+                    Process.Start(uri, arguments);
+                    this.Hide();
+                }
+                catch(Exception e)
+                {
+                    MessageBox.Show($"{e.GetType().Name}:\n{e.Message}", "Error");
+                }
             }
-            this.Hide();
+            
         }
 
         public void Action_LoadStyles(string fileName)
