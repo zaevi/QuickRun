@@ -1,12 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <QuickRunSetting>
-  <Item Name="快速访问">
-    <Item Name="Temp" Uri="C:\Users\zaevi\Temp" />
-    <Item Name="zaevi" Uri="C:\Users\zaevi\" />
-    <Item Name="ithome" Uri="shell:AppsFolder\CEF5787D.IT_tjw031c2n34qp!App" />
-    <Item Name="Back" Type="BackButton" />
-  </Item>
   <Item Name="QuickRun选项">
+    <Item Name="打开编辑器" Uri="QuickRun.Setting.exe"/>
     <Item Name="打开配置目录" Uri="%APPDATA%\QuickRun\" />
     <Item Name="打开Github" Uri="https://github.com/Zaeworks/QuickRun" />
     <Item Name="Back" Type="BackButton" />
