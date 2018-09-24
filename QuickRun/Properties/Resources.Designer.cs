@@ -22,7 +22,7 @@ namespace QuickRun.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources {
+    public class Resources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace QuickRun.Properties {
         ///   返回此类使用的缓存的 ResourceManager 实例。
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("QuickRun.Properties.Resources", typeof(Resources).Assembly);
@@ -51,7 +51,7 @@ namespace QuickRun.Properties {
         ///   重写当前线程的 CurrentUICulture 属性。
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -74,7 +74,7 @@ namespace QuickRun.Properties {
         ///    &lt;Item Name=&quot;打开Github&quot; Uri=&quot;https://github.com/Zaeworks/QuickRun&quot; /&gt;
         ///    &lt;Item Name=&quot;Back&quot; Type=&quot;BackButton&quot; [字符串的其余部分被截断]&quot;; 的本地化字符串。
         /// </summary>
-        internal static string design {
+        public static string design {
             get {
                 return ResourceManager.GetString("design", resourceCulture);
             }
@@ -83,7 +83,7 @@ namespace QuickRun.Properties {
         /// <summary>
         ///   查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Icon icon {
+        public static System.Drawing.Icon icon {
             get {
                 object obj = ResourceManager.GetObject("icon", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
@@ -93,7 +93,7 @@ namespace QuickRun.Properties {
         /// <summary>
         ///   查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Icon icon_notify {
+        public static System.Drawing.Icon icon_notify {
             get {
                 object obj = ResourceManager.GetObject("icon_notify", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
@@ -109,7 +109,7 @@ namespace QuickRun.Properties {
         ///    &lt;/Style&gt;
         ///&lt;/ResourceDictionary&gt; 的本地化字符串。
         /// </summary>
-        internal static string styles {
+        public static string styles {
             get {
                 return ResourceManager.GetString("styles", resourceCulture);
             }

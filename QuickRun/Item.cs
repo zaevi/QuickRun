@@ -34,7 +34,7 @@ namespace QuickRun
         public bool Enabled { get; set; } = true;
     }
 
-    internal class NameAttribute : Attribute
+    public class NameAttribute : Attribute
     {
         public string Name { get; set; }
 

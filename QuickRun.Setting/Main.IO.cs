@@ -14,12 +14,12 @@ namespace QuickRun.Setting
     public partial class Main : Window
     {
         public void Action_ExportStyleTemplate(string path)
-            => File.WriteAllText(path, Properties.Resources.styles);
+            => File.WriteAllText(path, QuickRun.Properties.Resources.styles);
 
         public void Action_Load(string path=null)
         {
             Action_Close();
-            var root = path != null ? XElement.Load(path) : XElement.Parse(Properties.Resources.design);
+            var root = path != null ? XElement.Load(path) : XElement.Parse(QuickRun.Properties.Resources.design);
             
             void ForItem(XElement xparent, ItemsControl parent)
             {

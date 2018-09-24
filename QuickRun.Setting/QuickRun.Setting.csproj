@@ -60,7 +60,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Item.cs" />
     <Compile Include="Main.Builder.cs" />
     <Compile Include="Main.IO.cs" />
     <Compile Include="Util.cs" />
@@ -76,10 +75,6 @@
       <DependentUpon>Main.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <None Include="Resources\styles.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -111,7 +106,11 @@
     <None Include="Resources\icon.ico" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\design.xml" />
+    <ProjectReference Include="..\QuickRun\QuickRun.csproj">
+      <Project>{73156c8e-ae61-4cbd-a828-d773fdff45bf}</Project>
+      <Name>QuickRun</Name>
+      <Private>False</Private>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
