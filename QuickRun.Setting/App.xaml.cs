@@ -43,11 +43,10 @@ namespace QuickRun.Setting
                         catch (Exception)
                         {
                             MessageBox.Show("程序集加载失败!");
-                            Environment.Exit(-1);
                         }
                     }
                 }
-
+                Environment.Exit(-1);
             }
             return args.RequestingAssembly;
         }
