@@ -93,6 +93,7 @@ namespace QuickRun
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            Directory.CreateDirectory(AppData);
             Action_LoadStyles("styles.xaml");
             Action_Load("design.xml");
             Action_ShowFolder("#0");

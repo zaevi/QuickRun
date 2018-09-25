@@ -76,5 +76,10 @@ namespace QuickRun.Setting
                     Action_NewItem();
             }
         }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            System.IO.Directory.CreateDirectory(AppData);
+        }
     }
 }

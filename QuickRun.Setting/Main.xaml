@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:QuickRun.Setting"
         mc:Ignorable="d"
-        Title="QuickRun配置" Height="450" Width="400">
+        Title="QuickRun配置" Height="450" Width="400"
+        Loaded="Window_Loaded">
     <Window.Resources>
         <Style TargetType="TreeViewItem">
             <Setter Property="BorderBrush" Value="Black"/>
