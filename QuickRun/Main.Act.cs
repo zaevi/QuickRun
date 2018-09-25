@@ -51,49 +51,6 @@ namespace QuickRun
                 Resources = XamlReader.Parse(Properties.Resources.styles) as ResourceDictionary;
         }
 
-        public bool Action_LoadItems(string itemPath, string mapPath)
-        {
-            Folder.Clear();
-            itemPath = Util.GetExistingPath(itemPath, ".", AppData);
-            mapPath = Util.GetExistingPath(mapPath, ".", AppData);
-            if (itemPath is null || mapPath is null) return false;
-            using (var fs = File.OpenRead(itemPath))
-            {
-                var panel = XamlReader.Load(fs) as StackPanel;
-                foreach (var btn in panel.FindVisualChildren<Button>())
-                {
-                    btn.Click += Button_Click;
-                    if(btn.AllowDrop)
-                    {
-                        //btn.PreviewDragOver += Btn_PreviewDragOver;
-                        btn.PreviewDrop += Btn_PreviewDrop;
-                    }
-                    if (btn.Tag.ToString().StartsWith("#"))
-                    {
-                        btn.AllowDrop = true;
-                        btn.PreviewDragOver += Btn_PreviewDragOver;
-                    }
-                }
-                foreach (Panel sp in panel.Children)
-                    Folder.Add(sp.Tag.ToString(), sp);
-                panel.Children.Clear();
-            }
-
-            var xe = XElement.Load(mapPath);
-            foreach (var action in xe.Elements("Action"))
-            {
-                switch (action.GetAttribute("Type"))
-                {
-                    case "Uri":
-                        //Map.Add(action.GetAttribute("Key"), action.GetAttribute("Uri"));
-                        break;
-                }
-            }
-
-            Action_ShowFolder("#0");
-            return true;
-        }
-
         Stack<string> FolderHistory = new Stack<string>();
 
         public void Action_ShowFolder(string key, bool back=false)

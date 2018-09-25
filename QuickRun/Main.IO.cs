@@ -20,16 +20,55 @@ using System.Xml.Linq;
 
 namespace QuickRun
 {
+
     partial class Main : Window
     {
-        public void Action_Load(string path = null)
+        FileSystemWatcher FileWatcher;
+        bool FileWatcherFix = true;
+        string DesignPath = null;
+
+        public async void Action_Reload(string path)
         {
-            path = Util.GetExistingPath(path, ".", AppData);
+            await Task.Run(() =>
+            {
+                while (true)
+                {
+                    try
+                    {
+                        using (var fs = File.OpenRead(DesignPath))
+                            break;
+                    }
+                    catch (IOException) { }
+                }
+            });
+            Application.Current.Dispatcher.Invoke(() => 
+            {
+                Action_Load();
+                Action_ShowFolder("#0");
+            });
+        }
+
+        public void Action_Load(string fileName = null)
+        {
+            XElement root;
+            if (File.Exists(DesignPath))
+                root = XElement.Load(DesignPath);
+            else if (System.IO.Path.IsPathRooted(fileName))
+                root = XElement.Load(fileName);
+            else
+            {
+                DesignPath = Util.GetExistingPath(fileName, ".", AppData);
+                root = DesignPath == null ? XElement.Parse(Properties.Resources.design) : XElement.Load(DesignPath);
+            }
+
+            var Map = new Dictionary<string, Item>();
+            var Folder = new Dictionary<string, Panel>();
 
             int autoIndex = 0;
-
-            var root = path != null ? XElement.Load(path) : XElement.Parse(Properties.Resources.design);
             ForItem(root);
+
+            this.Map = Map;
+            this.Folder = Folder;
 
             string GenerateKey(bool isFolder)
             {

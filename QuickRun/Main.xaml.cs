@@ -97,6 +97,22 @@ namespace QuickRun
             Action_Load("design.xml");
             Action_ShowFolder("#0");
 
+            if (DesignPath != null)
+            {
+                FileWatcher = new FileSystemWatcher()
+                {
+                    Path = System.IO.Path.GetDirectoryName(DesignPath),
+                    Filter = System.IO.Path.GetFileName(DesignPath),
+                    EnableRaisingEvents = true,
+                };
+                FileWatcher.Changed += (s, fe) =>
+                {
+                    if (FileWatcherFix) { FileWatcherFix = false; return; }
+                    FileWatcherFix = true;
+                    Action_Reload(fe.FullPath);
+                };
+            }
+
             ShowInTaskbar = false;
 
             Notify = new Forms.NotifyIcon() {
