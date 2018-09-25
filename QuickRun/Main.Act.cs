@@ -41,16 +41,6 @@ namespace QuickRun
             
         }
 
-        public void Action_LoadStyles(string fileName)
-        {
-            var path = Util.GetExistingPath(fileName, ".", AppData);
-            if (path != null)
-                using (var fs = File.OpenRead(path))
-                    Resources = XamlReader.Load(fs) as ResourceDictionary;
-            else
-                Resources = XamlReader.Parse(Properties.Resources.styles) as ResourceDictionary;
-        }
-
         Stack<string> FolderHistory = new Stack<string>();
 
         public void Action_ShowFolder(string key, bool back=false)

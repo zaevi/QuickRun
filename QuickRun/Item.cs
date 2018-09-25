@@ -35,6 +35,9 @@ namespace QuickRun
 
         [DisplayName("保持开启")]
         public bool StayOpen { get; set; } = false;
+
+        [DisplayName("样式")]
+        public string Style { get; set; } = "Default";
     }
 
     public static class ItemUtil

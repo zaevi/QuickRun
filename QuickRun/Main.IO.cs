@@ -89,6 +89,8 @@ namespace QuickRun
                     var btn = new Button() { Content = item.Name };
                     if (!item.Enabled) btn.Visibility = Visibility.Collapsed;
                     btn.Click += Button_Click;
+                    if (Resources.Contains(item.Style))
+                        btn.Style = Resources[item.Style] as Style;
                     sp.Children.Add(btn);
                     if (xe.Element(nameof(Item)) != null)
                     {
@@ -112,6 +114,22 @@ namespace QuickRun
                 }
 
                 return sp;
+            }
+        }
+
+        public void Action_LoadStyles(string fileName)
+        {
+            var resource = XamlReader.Parse(Properties.Resources.styles) as ResourceDictionary;
+            Resources.MergedDictionaries.Add(resource);
+
+            var path = Util.GetExistingPath(fileName, ".", AppData);
+            if (path != null)
+            {
+                using (var fs = File.OpenRead(path))
+                {
+                    resource = XamlReader.Load(fs) as ResourceDictionary;
+                    Resources.MergedDictionaries.Add(resource);
+                }
             }
         }
     }
