@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 using System.Windows;
@@ -125,7 +126,7 @@ namespace QuickRun.Setting
             for (int i=0; i<properties.Length; i++)
             {
                 var property = properties[i];
-                var name = (property.GetCustomAttributes(false).FirstOrDefault() as NameAttribute)?.Name;
+                var name = (property.GetCustomAttributes(false).FirstOrDefault() as DisplayNameAttribute)?.DisplayName;
                 
                 var label = new Label() { Content = name };
                 Grid.SetRow(label, i);

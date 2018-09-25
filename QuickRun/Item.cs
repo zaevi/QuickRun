@@ -1,5 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 using System.Xml.Linq;
@@ -15,30 +15,23 @@ namespace QuickRun
 
     public class Item
     {
-        [Name("名称")]
+        [DisplayName("名称")]
         public string Name { get; set; } = "Node";
 
-        [Name("类型")]
+        [DisplayName("类型")]
         public ItemType Type { get; set; } = ItemType.Uri;
 
-        [Name("Key")]
+        [DisplayName("Key")]
         public string Key { get; set; } = "";
 
-        [Name("启动Uri")]
+        [DisplayName("启动Uri")]
         public string Uri { get; set; } = "";
 
-        [Name("允许拖拽")]
+        [DisplayName("允许拖拽")]
         public bool AllowDrop { get; set; } = false;
 
-        [Name("可用")]
+        [DisplayName("可用")]
         public bool Enabled { get; set; } = true;
-    }
-
-    public class NameAttribute : Attribute
-    {
-        public string Name { get; set; }
-
-        public NameAttribute(string name) => Name = name;
     }
 
     public static class ItemUtil

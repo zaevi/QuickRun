@@ -36,7 +36,7 @@ namespace QuickRun.Setting
                         try
                         {
                             var assembly = Assembly.LoadFile(dialog.FileName);
-                            if (assembly.GetName().Name == nameof(QuickRun) && assembly.GetType(nameof(Item)) != null)
+                            if (assembly.GetName().Name == nameof(QuickRun) && assembly.GetType("QuickRun.Item") != null)
                                 return assembly;
                             throw new Exception();
                         }
