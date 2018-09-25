@@ -32,6 +32,9 @@ namespace QuickRun
 
         [DisplayName("可用")]
         public bool Enabled { get; set; } = true;
+
+        [DisplayName("保持开启")]
+        public bool StayOpen { get; set; } = false;
     }
 
     public static class ItemUtil

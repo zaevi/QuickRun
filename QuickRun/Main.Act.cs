@@ -31,7 +31,7 @@ namespace QuickRun
                 try
                 {
                     Process.Start(uri, arguments);
-                    this.Hide();
+                    if(!item.StayOpen) this.Hide();
                 }
                 catch(Exception e)
                 {
