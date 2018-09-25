@@ -84,7 +84,7 @@ namespace QuickRun
             {
                 var files = (string[])e.Data.GetData(DataFormats.FileDrop);
                 var btn = (sender as Button);
-                if (btn.Tag is string tag && tag.StartsWith("A"))
+                if (btn.Tag is string tag)
                 {
                     Action_RunAction(tag, string.Join(" ", files.Select(f => "\"" + f + "\"")));
                 }

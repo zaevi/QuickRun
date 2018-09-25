@@ -107,7 +107,7 @@ namespace QuickRun
                         btn.Tag = xe.GetAttribute("Key", null) ?? GenerateKey(false);
                         item.Key = btn.Tag.ToString();
                         Map[btn.Tag.ToString()] = item;
-                        if (item.AllowDrop) { btn.AllowDrop = true; btn.Click += Button_Click; }
+                        if (item.AllowDrop) { btn.AllowDrop = true; btn.PreviewDrop += Btn_PreviewDrop; }
                     }
                 }
 
