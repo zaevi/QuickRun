@@ -34,6 +34,8 @@ namespace QuickRun
                 };
                 if (File.Exists(startInfo.FileName))
                     startInfo.WorkingDirectory = System.IO.Path.GetDirectoryName(startInfo.FileName);
+                if (item.Admin)
+                    startInfo.Verb = "RunAs";
                 try
                 {
                     Process.Start(startInfo);

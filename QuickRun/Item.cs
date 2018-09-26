@@ -30,6 +30,9 @@ namespace QuickRun
         [DisplayName("启动参数")]
         public string Arguments { get; set; } = "";
 
+        [DisplayName("管理员权限")]
+        public bool Admin { get; set; } = false;
+
         [DisplayName("允许拖拽")]
         public bool AllowDrop { get; set; } = false;
 
