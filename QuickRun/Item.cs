@@ -27,6 +27,9 @@ namespace QuickRun
         [DisplayName("启动Uri")]
         public string Uri { get; set; } = "";
 
+        [DisplayName("启动参数")]
+        public string Arguments { get; set; } = "";
+
         [DisplayName("允许拖拽")]
         public bool AllowDrop { get; set; } = false;
 

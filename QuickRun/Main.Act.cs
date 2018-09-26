@@ -27,10 +27,16 @@ namespace QuickRun
         {
             if (Map.TryGetValue(key, out var item))
             {
-                var uri = Environment.ExpandEnvironmentVariables(item.Uri);
+                var startInfo = new ProcessStartInfo()
+                {
+                    FileName = Environment.ExpandEnvironmentVariables(item.Uri),
+                    Arguments = string.Join(" ", item.Arguments, arguments),
+                };
+                if (File.Exists(startInfo.FileName))
+                    startInfo.WorkingDirectory = System.IO.Path.GetDirectoryName(startInfo.FileName);
                 try
                 {
-                    Process.Start(uri, arguments);
+                    Process.Start(startInfo);
                     if(!item.StayOpen) this.Hide();
                 }
                 catch(Exception e)
