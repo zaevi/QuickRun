@@ -1,21 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
+using System.IO;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using System.IO;
 using System.Windows.Markup;
-using System.Collections;
-using System.Diagnostics;
 using System.Xml.Linq;
 
 namespace QuickRun
@@ -53,7 +41,7 @@ namespace QuickRun
             XElement root;
             if (File.Exists(DesignPath))
                 root = XElement.Load(DesignPath);
-            else if (System.IO.Path.IsPathRooted(fileName))
+            else if (Path.IsPathRooted(fileName))
                 root = XElement.Load(fileName);
             else
             {
@@ -79,9 +67,11 @@ namespace QuickRun
             
             StackPanel ForItem(XElement xparent, StackPanel spParent=null)
             {
-                var sp = new StackPanel();
-                sp.Tag = xparent.GetAttribute("Key", null) ?? GenerateKey(true);
-                sp.Name = xparent.GetAttribute("Name", null) ?? "QuickRun";
+                var sp = new StackPanel
+                {
+                    Tag = xparent.GetAttribute("Key", null) ?? GenerateKey(true),
+                    Name = xparent.GetAttribute("Name", null) ?? "QuickRun"
+                };
                 Folder[sp.Tag.ToString()] = sp;
                 foreach (var xe in xparent.Elements(nameof(Item)))
                 {

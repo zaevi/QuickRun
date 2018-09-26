@@ -48,7 +48,7 @@ namespace QuickRun
 
     public static class ItemUtil
     {
-        static Item DefaultItem = new Item();
+        static readonly Item DefaultItem = new Item();
 
         static Dictionary<string, PropertyInfo> Properties = typeof(Item).GetProperties().ToDictionary(p => p.Name, p => p);
 

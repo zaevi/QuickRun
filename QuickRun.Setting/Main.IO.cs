@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.IO;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Markup;
 using System.Xml.Linq;
-using System.IO;
 
 namespace QuickRun.Setting
 {
