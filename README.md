@@ -9,7 +9,7 @@
 - QuickRun.exe - 启动器
 - QuickRun.Setting.exe - 编辑器, 用于可视化编辑配置
 - design.xml - 启动项配置文件*
-- styles.xml - 样式文件*
+- styles.xaml - 样式文件*
 
 ## 使用
 - [下载程序](https://github.com/Zaeworks/QuickRun/releases)
