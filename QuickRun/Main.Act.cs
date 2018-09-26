@@ -64,6 +64,7 @@ namespace QuickRun
             if (mainPanel.Children.Count > 1)
                 mainPanel.Children.RemoveAt(1);
             mainPanel.Children.Add(Folder[key]);
+            title.Content = Folder[key].Name;
             CurrentFolder = key;
             backBtn.Visibility = key == "#0" ? Visibility.Collapsed : Visibility.Visible;
         }

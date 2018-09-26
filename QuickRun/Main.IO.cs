@@ -81,6 +81,7 @@ namespace QuickRun
             {
                 var sp = new StackPanel();
                 sp.Tag = xparent.GetAttribute("Key", null) ?? GenerateKey(true);
+                sp.Name = xparent.GetAttribute("Name", null) ?? "QuickRun";
                 Folder[sp.Tag.ToString()] = sp;
                 foreach (var xe in xparent.Elements(nameof(Item)))
                 {

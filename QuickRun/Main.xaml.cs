@@ -47,7 +47,6 @@ namespace QuickRun
                 if(tag.StartsWith("#"))
                 {
                     Action_ShowFolder(tag);
-                    title.Content = (sender as Button).Content;
                 }
                 else if(tag.StartsWith("$"))
                 {
