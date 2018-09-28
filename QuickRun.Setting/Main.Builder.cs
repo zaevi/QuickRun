@@ -19,56 +19,51 @@ namespace QuickRun.Setting
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
             var tag = (sender as MenuItem).Tag.ToString();
-            switch(tag)
+
+            if (tag == "New")
+                Action_Load();
+            else if (tag == "Save")
             {
-                case "New":
-                    Action_Load();
-                    break;
-                case "Save":
-                    if (FilePath is null) break;
-                    Action_Save(FilePath);
-                    break;
-                default:
-                    if(tag.StartsWith("Open"))
-                    {
-                        string path = null;
-                        switch(tag)
-                        {
-                            case "OpenLocal":path = Util.GetExistingPath("design.xml", ".");break;
-                            case "OpenAppData":path = Util.GetExistingPath("design.xml", AppData);break;
-                        }
-                        if (path == null)
-                            MessageBox.Show("文件不存在!");
-                        else
-                            Action_Load(path);
-                    }
-                    else if(tag.StartsWith("SaveAs"))
-                    {
-                        string path = null;
-                        switch (tag)
-                        {
-                            case "SaveAsLocal": path = @".\" + "design.xml"; break;
-                            case "SaveAsAppData": path = AppData + "design.xml"; break;
-                        }
-                        if(System.IO.File.Exists(path))
-                            if (MessageBox.Show("覆盖现有配置?", "", MessageBoxButton.YesNo) != MessageBoxResult.Yes)
-                                break;
-                        Action_Save(path);
-                    }
-                    else if(tag.StartsWith("StyleTo"))
-                    {
-                        string path = null;
-                        switch(tag)
-                        {
-                            case "StyleToLocal": path = @".\" + "styles.xaml"; break;
-                            case "StyleToAppData": path = AppData + "styles.xaml"; break;
-                        }
-                        if (System.IO.File.Exists(path))
-                            if (MessageBox.Show("覆盖现有样式?", "", MessageBoxButton.YesNo) != MessageBoxResult.Yes)
-                                break;
-                        Action_ExportStyleTemplate(path);
-                    }
-                    break;
+                if (FilePath != null) Action_Save(FilePath);
+            }
+            else if (tag.StartsWith("Open"))
+            {
+                string path = null;
+                switch (tag)
+                {
+                    case "OpenLocal": path = Util.GetExistingPath("design.xml", "."); break;
+                    case "OpenAppData": path = Util.GetExistingPath("design.xml", AppData); break;
+                }
+                if (path == null)
+                    MessageBox.Show("文件不存在!");
+                else
+                    Action_Load(path);
+            }
+            else if (tag.StartsWith("SaveAs"))
+            {
+                string path = null;
+                switch (tag)
+                {
+                    case "SaveAsLocal": path = @".\" + "design.xml"; break;
+                    case "SaveAsAppData": path = AppData + "design.xml"; break;
+                }
+                if (System.IO.File.Exists(path))
+                    if (MessageBox.Show("覆盖现有配置?", "", MessageBoxButton.YesNo) != MessageBoxResult.Yes)
+                        return;
+                Action_Save(path);
+            }
+            else if (tag.StartsWith("StyleTo"))
+            {
+                string path = null;
+                switch (tag)
+                {
+                    case "StyleToLocal": path = @".\" + "styles.xaml"; break;
+                    case "StyleToAppData": path = AppData + "styles.xaml"; break;
+                }
+                if (System.IO.File.Exists(path))
+                    if (MessageBox.Show("覆盖现有样式?", "", MessageBoxButton.YesNo) != MessageBoxResult.Yes)
+                        return;
+                Action_ExportStyleTemplate(path);
             }
         }
 
