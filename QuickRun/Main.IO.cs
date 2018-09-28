@@ -83,6 +83,11 @@ namespace QuickRun
                     if (Resources.Contains(item.Style))
                         btn.Style = Resources[item.Style] as Style;
                     sp.Children.Add(btn);
+
+                    if (!string.IsNullOrEmpty(item.Plugin))
+                        PluginManager.LoadPlugin(item.Plugin);
+
+
                     if (xe.Element(nameof(Item)) != null)
                     {
                         btn.Tag = ForItem(xe, sp).Tag;
