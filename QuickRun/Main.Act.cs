@@ -27,12 +27,28 @@ namespace QuickRun
                     Process.Start(startInfo);
                     if(!item.StayOpen) this.Hide();
                 }
-                catch(Exception e)
+                catch (Exception e)
                 {
                     MessageBox.Show($"{e.GetType().Name}:\n{e.Message}", "Error");
                 }
             }
             
+        }
+
+        public void Action_RunPlugin(string key, IDataObject dragData = null)
+        {
+            if(Map.TryGetValue(key, out var item))
+            {
+                try
+                {
+                    var result = PluginManager.ExecutePlugin(item, dragData);
+                    if (result != null && result.Success && !item.StayOpen) Hide();
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show($"{e.GetType().Name}:\n{e.Message}", "Error");
+                }
+            }
         }
 
         Stack<string> FolderHistory = new Stack<string>();

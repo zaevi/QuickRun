@@ -60,9 +60,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Plugin\Plugin.cs" />
     <Compile Include="Item.cs" />
     <Compile Include="Main.Act.cs" />
     <Compile Include="Main.IO.cs" />
+    <Compile Include="Plugin\PluginManager.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

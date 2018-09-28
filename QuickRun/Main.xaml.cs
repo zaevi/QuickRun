@@ -35,9 +35,9 @@ namespace QuickRun
                 {
                     Action_ShowFolder(tag);
                 }
-                else if(tag.StartsWith("$"))
+                else if (tag.StartsWith("$"))
                 {
-                    
+                    Action_RunPlugin(tag);
                 }
                 else
                 {

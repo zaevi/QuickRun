@@ -44,6 +44,9 @@ namespace QuickRun
 
         [DisplayName("样式")]
         public string Style { get; set; } = "Default";
+
+        [DisplayName("插件路径")]
+        public string Plugin { get; set; } = "";
     }
 
     public static class ItemUtil
