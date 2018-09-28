@@ -118,11 +118,13 @@ namespace QuickRun
             backBtn.AllowDrop = true;
             backBtn.PreviewDragOver += Btn_PreviewDragOver;
             Topmost = true;
+
+            PreviewMouseRightButtonUp += (s, me) => Action_ShowFolder(null, true);
         }
 
         private void TitleBar_Loaded(object sender, RoutedEventArgs e)
         {
-            titleBar.MouseDown += (s, me) => DragMove();
+            titleBar.MouseLeftButtonDown += (s, me) => DragMove();
         }
 
         private void backBtn_Click(object sender, RoutedEventArgs e)

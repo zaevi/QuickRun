@@ -41,9 +41,10 @@ namespace QuickRun
         {
             if(back)
             {
+                if (FolderHistory.Count == 0) return;
                 key = FolderHistory.Pop();
             }
-            else
+            else if(CurrentFolder != null)
             {
                 FolderHistory.Push(CurrentFolder);
             }
