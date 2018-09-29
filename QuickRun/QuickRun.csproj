@@ -123,6 +123,7 @@
     <ProjectReference Include="..\QuickRun.Plugin\QuickRun.Plugin.csproj">
       <Project>{4ceb48db-b44c-4ccc-a0aa-0a6b073d0212}</Project>
       <Name>QuickRun.Plugin</Name>
+      <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
