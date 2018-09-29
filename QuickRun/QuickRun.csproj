@@ -60,7 +60,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Plugin\Plugin.cs" />
     <Compile Include="Item.cs" />
     <Compile Include="Main.Act.cs" />
     <Compile Include="Main.IO.cs" />
@@ -119,6 +118,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\design.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\QuickRun.Plugin\QuickRun.Plugin.csproj">
+      <Project>{4ceb48db-b44c-4ccc-a0aa-0a6b073d0212}</Project>
+      <Name>QuickRun.Plugin</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
