@@ -26,4 +26,13 @@ namespace QuickRun.Plugin
             return true;
         }
     }
+
+    /// <summary>
+    /// 不处理拖拽的Plugin衍生类
+    /// </summary>
+    public abstract class NoDragPlugin : Plugin
+    {
+        public override bool GetDragData(IDataObject dragData)
+            => false;
+    }
 }

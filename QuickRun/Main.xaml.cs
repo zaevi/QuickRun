@@ -66,14 +66,15 @@ namespace QuickRun
 
         private void Btn_PreviewDrop(object sender, DragEventArgs e)
         {
-            if(e.Data.GetFormats().Contains("FileName"))
+            if (!((sender as Button).Tag is string tag)) return;
+            if (tag.StartsWith("$"))
+            {
+                Action_RunPlugin(tag, e.Data);
+            }
+            else if (e.Data.GetFormats().Contains("FileName"))
             {
                 var files = (string[])e.Data.GetData(DataFormats.FileDrop);
-                var btn = (sender as Button);
-                if (btn.Tag is string tag)
-                {
                     Action_RunAction(tag, string.Join(" ", files.Select(f => "\"" + f + "\"")));
-                }
             }
         }
 
