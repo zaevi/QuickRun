@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Windows;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace QuickRun
 {
@@ -13,19 +15,21 @@ namespace QuickRun
         static HashSet<string> LoadedAssembly = new HashSet<string>();
         static Dictionary<string, Type> PluginMap = new Dictionary<string, Type>();
 
-        public static void LoadPlugin(string path)
+        public async static void LoadPlugin(string path)
         {
-            var assembly = Assembly.Load(path);
-            if (LoadedAssembly.Contains(assembly.FullName))
-                return;
-
-            var plugins = assembly.GetTypes().Where(t => t.IsSubclassOf(typeof(Plugin.Plugin)));
-            foreach(var pType in plugins)
+            await Task.Run(() =>
             {
-                string key = pType.GetCustomAttribute<PluginAttribute>()?.Key ?? pType.FullName;
-                PluginMap[key] = pType;
-            }
-            LoadedAssembly.Add(assembly.FullName);
+                var assembly = Assembly.Load(path);
+                if (LoadedAssembly.Contains(assembly.FullName))
+                    return;
+                var plugins = assembly.GetTypes().Where(t => t.IsSubclassOf(typeof(Plugin.Plugin)));
+                foreach (var pType in plugins)
+                {
+                    string key = pType.GetCustomAttribute<PluginAttribute>()?.Key ?? pType.FullName;
+                    PluginMap[key] = pType;
+                }
+                LoadedAssembly.Add(assembly.FullName);
+            });
         }
 
         public static Plugin.Plugin ExecutePlugin(Item item, IDataObject dragData=null)
