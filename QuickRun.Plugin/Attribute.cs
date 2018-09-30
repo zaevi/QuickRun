@@ -14,10 +14,15 @@ namespace QuickRun.Plugin
         /// </summary>
         public string Key { get; set; } = null;
 
-        public PluginAttribute(string name, string key)
+        public PluginAttribute(string key, string name)
         {
             Key = "$" + key.TrimStart('$');
             Name = name;
+        }
+
+        public PluginAttribute(string key)
+        {
+            Key = "$" + key.TrimStart('$');
         }
     }
 }
