@@ -15,6 +15,9 @@ namespace QuickRun.Setting
 
         Dictionary<TreeViewItem, Item> ItemMap = new Dictionary<TreeViewItem, Item>();
 
+        string StyleTemplate;
+        string DesignTemplate;
+
         public Main()
             => InitializeComponent();
 
@@ -70,6 +73,17 @@ namespace QuickRun.Setting
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             System.IO.Directory.CreateDirectory(AppData);
+            try
+            {
+                StyleTemplate = QuickRun.Properties.Resources.styles;
+                DesignTemplate = QuickRun.Properties.Resources.design;
+            }
+            catch(System.IO.FileNotFoundException)
+            {
+                var rm = new System.Resources.ResourceManager("QuickRun.Properties.Resources", typeof(Item).Assembly);
+                StyleTemplate = rm.GetString("styles");
+                DesignTemplate = rm.GetString("design");
+            }
         }
     }
 }
