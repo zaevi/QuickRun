@@ -1,11 +1,16 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Blend for Visual Studio 15
+# Visual Studio 15
 VisualStudioVersion = 15.0.28010.2003
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuickRun", "QuickRun\QuickRun.csproj", "{73156C8E-AE61-4CBD-A828-D773FDFF45BF}"
+	ProjectSection(ProjectDependencies) = postProject
+		{4CEB48DB-B44C-4CCC-A0AA-0A6B073D0212} = {4CEB48DB-B44C-4CCC-A0AA-0A6B073D0212}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuickRun.Setting", "QuickRun.Setting\QuickRun.Setting.csproj", "{87DA0CD6-3A77-47CC-B963-04752FDED96E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuickRun.Plugin", "QuickRun.Plugin\QuickRun.Plugin.csproj", "{4CEB48DB-B44C-4CCC-A0AA-0A6B073D0212}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +26,10 @@ Global
 		{87DA0CD6-3A77-47CC-B963-04752FDED96E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{87DA0CD6-3A77-47CC-B963-04752FDED96E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{87DA0CD6-3A77-47CC-B963-04752FDED96E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4CEB48DB-B44C-4CCC-A0AA-0A6B073D0212}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4CEB48DB-B44C-4CCC-A0AA-0A6B073D0212}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4CEB48DB-B44C-4CCC-A0AA-0A6B073D0212}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4CEB48DB-B44C-4CCC-A0AA-0A6B073D0212}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
