@@ -41,10 +41,17 @@ namespace QuickRun.Setting
             }
         }
 
-        public void Action_Close()
+        public bool Action_Close()
         {
+            if (FilePath != null && Modified)
+            {
+                var result = MessageBox.Show("是否保存当前文件?", "", MessageBoxButton.YesNoCancel);
+                if (result == MessageBoxResult.Yes) Action_Save(FilePath);
+                else if (result == MessageBoxResult.Cancel) return false;
+            }
             treeView.Items.Clear();
             ItemMap.Clear();
+            return true;
         }
 
         public void Action_NewItem(ItemsControl parent=null, int index=-1)

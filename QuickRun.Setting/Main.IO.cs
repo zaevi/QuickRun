@@ -15,7 +15,7 @@ namespace QuickRun.Setting
 
         public void Action_Load(string path=null)
         {
-            Action_Close();
+            if (!Action_Close()) return;
             var root = path != null ? XElement.Load(path) : XElement.Parse(DesignTemplate);
             
             void ForItem(XElement xparent, ItemsControl parent)
