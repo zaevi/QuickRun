@@ -12,6 +12,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuickRun.Setting", "QuickRu
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuickRun.Plugin", "QuickRun.Plugin\QuickRun.Plugin.csproj", "{4CEB48DB-B44C-4CCC-A0AA-0A6B073D0212}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuickRun.Extension", "QuickRun.Extension\QuickRun.Extension.csproj", "{1DA939B8-6093-47F8-8877-786011B45727}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,6 +32,10 @@ Global
 		{4CEB48DB-B44C-4CCC-A0AA-0A6B073D0212}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4CEB48DB-B44C-4CCC-A0AA-0A6B073D0212}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4CEB48DB-B44C-4CCC-A0AA-0A6B073D0212}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1DA939B8-6093-47F8-8877-786011B45727}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1DA939B8-6093-47F8-8877-786011B45727}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1DA939B8-6093-47F8-8877-786011B45727}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1DA939B8-6093-47F8-8877-786011B45727}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
