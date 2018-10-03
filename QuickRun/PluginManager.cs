@@ -14,21 +14,23 @@ namespace QuickRun
         static HashSet<string> LoadedAssembly = new HashSet<string>();
         static Dictionary<string, Type> PluginMap = new Dictionary<string, Type>();
 
-        public async static void LoadPlugin(string path)
+        public static bool LoadPlugin(string path)
         {
-            await Task.Run(() =>
+            try
             {
                 var assembly = Assembly.Load(path);
                 if (LoadedAssembly.Contains(assembly.FullName))
-                    return;
+                    return true;
                 var plugins = assembly.GetTypes().Where(t => t.IsSubclassOf(typeof(Plugin.Plugin)));
                 foreach (var pType in plugins)
                 {
-                    string key = pType.GetCustomAttribute<PluginAttribute>()?.Key ?? pType.FullName;
+                    string key = pType.GetCustomAttribute<PluginAttribute>()?.Key ?? ("$" + pType.FullName);
                     PluginMap[key] = pType;
                 }
                 LoadedAssembly.Add(assembly.FullName);
-            });
+                return true;
+            }
+            catch { return false; }
         }
 
         public static Plugin.Plugin ExecutePlugin(Item item, IDataObject dragData=null)

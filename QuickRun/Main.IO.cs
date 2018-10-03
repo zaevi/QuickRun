@@ -49,6 +49,7 @@ namespace QuickRun
                 root = DesignPath == null ? XElement.Parse(Properties.Resources.design) : XElement.Load(DesignPath);
             }
 
+            var plugins = new List<string>();
             var Map = new Dictionary<string, Item>();
             var Folder = new Dictionary<string, Panel>();
 
@@ -57,6 +58,8 @@ namespace QuickRun
 
             this.Map = Map;
             this.Folder = Folder;
+
+            Task.Run(() => plugins.ForEach(p => PluginManager.LoadPlugin(p)));
 
             string GenerateKey(bool isFolder)
             {
@@ -85,8 +88,7 @@ namespace QuickRun
                     sp.Children.Add(btn);
 
                     if (!string.IsNullOrEmpty(item.Plugin))
-                        PluginManager.LoadPlugin(item.Plugin);
-
+                        plugins.Add(item.Plugin);
 
                     if (xe.Element(nameof(Item)) != null)
                     {
