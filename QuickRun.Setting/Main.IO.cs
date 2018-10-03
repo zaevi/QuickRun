@@ -47,7 +47,7 @@ namespace QuickRun.Setting
                     xe = ItemMap[treeItem as TreeViewItem].ToXElement();
                 }
                 else
-                    xe = new XElement("QuickRunSetting");
+                    xe = new XElement("Item");
                 if (treeItem.HasItems)
                     foreach(TreeViewItem ti in treeItem.Items)
                         xe.Add(ForItem(ti));

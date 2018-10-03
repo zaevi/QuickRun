@@ -1,9 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<QuickRunSetting>
-  <Item Name="QuickRun选项">
+<Item>
+  <Item Name="QuickRun选项" Plugin="QuickRun.Extension">
     <Item Name="打开编辑器" Uri="QuickRun.Setting.exe"/>
-    <Item Name="打开配置目录" Uri="%APPDATA%\QuickRun\" />
-    <Item Name="打开Github" Uri="https://github.com/Zaeworks/QuickRun" />
+    <Item Name="打开AppData目录" Uri="%APPDATA%\QuickRun\" />
+    <Item Name="Github页面" Uri="https://github.com/Zaeworks/QuickRun" />
+    <Item Name="导出样式模板" Key="$ExportStyle"/>
+    <Item Name="导出配置模板" Key="$ExportDesign"/>
+    <Item Name="设置开机启动" Key="$SetStartup"/>
     <Item Name="Back" Type="BackButton" />
   </Item>
-</QuickRunSetting>
+</Item>
