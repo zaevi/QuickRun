@@ -11,7 +11,7 @@ namespace QuickRun.Extension
 
         const string AppName = @"QuickRun";
 
-        readonly string AppPath = typeof(QuickRun.App).Assembly.Location;
+        readonly string AppPath = $"\"{typeof(App).Assembly.Location}\" -h";
 
         public override void Execute()
         {
