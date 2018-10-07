@@ -21,7 +21,7 @@ namespace QuickRun
                 var assembly = Assembly.Load(path);
                 if (LoadedAssembly.Contains(assembly.FullName))
                     return true;
-                var plugins = assembly.ExportedTypes.Where(t => t is IPlugin);
+                var plugins = assembly.ExportedTypes.Where(t => typeof(IPlugin).IsAssignableFrom(t));
                 foreach (var pType in plugins)
                 {
                     string key = pType.GetCustomAttribute<PluginAttribute>()?.Key ?? ("$" + pType.FullName);
