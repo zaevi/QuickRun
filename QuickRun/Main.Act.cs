@@ -41,8 +41,8 @@ namespace QuickRun
             {
                 try
                 {
-                    var result = PluginManager.ExecutePlugin(item, dragData);
-                    if (result != null && result.Success && !item.StayOpen) Hide();
+                    var executed = PluginManager.ExecutePlugin(item, dragData);
+                    if (executed && !item.StayOpen) Hide();
                 }
                 catch (Exception e)
                 {
