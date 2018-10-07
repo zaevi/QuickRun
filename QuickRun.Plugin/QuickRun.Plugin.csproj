@@ -43,6 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Attribute.cs" />
+    <Compile Include="Interfaces.cs" />
     <Compile Include="Plugin.cs" />
     <Compile Include="DerivedPlugin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
