@@ -5,7 +5,7 @@ using System.Windows.Forms;
 namespace QuickRun.Extension
 {
     [Plugin("$SetStartup", "设置开机启动")]
-    class SetStartupPlugin : IPlugin
+    public class SetStartupPlugin : IPlugin
     {
         const string StartupSubKey = @"Software\Microsoft\Windows\CurrentVersion\Run";
 
