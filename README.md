@@ -1,15 +1,17 @@
 # QuickRun
 绝赞WIP
 
-这是一个追求简洁的快捷启动器, 你可以将文件/应用程序/网页URL等添加至程序中; 它们实际上会变成一个个按钮, 这之后你可以对按钮的行为进行自定义, 同时也能对样式进行有限的修改.
+这是一个追求简洁的快捷启动器, 你可以将文件/应用程序/网页URL等添加至程序中;
+你可以自定义它们的启动行为, 也能对它们在启动器中的样式进行有限的修改.
+作为开发者, 你还可以为程序开发扩展插件, 进一步提高使用效率
 
-目前版本: 0.6.2 - [更新日志](ChangeLog.md)
+目前版本: 0.7.0.0 - [更新日志](ChangeLog.md)
 
 ## 程序清单
 - QuickRun.exe - 启动器
+- QuickRun.Plugin.dll - 插件接口
+- QuickRun.Extension.dll - 启动器相关的扩展插件, 包含模板导出等功能
 - QuickRun.Setting.exe - 编辑器, 用于可视化编辑配置
-- design.xml - 启动项配置文件*
-- styles.xaml - 样式文件*
 
 ## 使用
 - [下载程序](https://github.com/Zaeworks/QuickRun/releases)
@@ -22,14 +24,17 @@
 程序内置的模板配置(design.xml)如下:
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
-<QuickRunSetting>
-  <Item Name="QuickRun选项">
+<Item>
+  <Item Name="QuickRun选项" Plugin="QuickRun.Extension">
     <Item Name="打开编辑器" Uri="QuickRun.Setting.exe"/>
-    <Item Name="打开配置目录" Uri="%APPDATA%\QuickRun\" />
-    <Item Name="打开Github" Uri="https://github.com/Zaeworks/QuickRun" />
+    <Item Name="打开AppData目录" Uri="%APPDATA%\QuickRun\" />
+    <Item Name="Github页面" Uri="https://github.com/Zaeworks/QuickRun" />
+    <Item Name="导出样式模板" Key="$ExportStyle"/>
+    <Item Name="导出配置模板" Key="$ExportDesign"/>
+    <Item Name="设置开机启动" Key="$SetStartup"/>
     <Item Name="Back" Type="BackButton" />
   </Item>
-</QuickRunSetting>
+</Item>
 ```
 你也可以直接在程序目录下新建design.xml并写入上面的XML配置.
 
@@ -46,7 +51,7 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Style TargetType="Button" x:Key="Default" >
-        <Setter Property="Padding" Value="5"/>
+        <Setter Property="Padding" Value="5,8"/>
         <Setter Property="Background" Value="White"/>
         <Setter Property="BorderThickness" Value="0"/>
     </Style>
@@ -75,10 +80,49 @@
 ```
 设置Item的Style属性为BlueText或Gray, 就会呈现出不同样式
 
+### 插件扩展
+插件的接口引用和使用参见QuickRun.Extension例子, 只要实现了IPlugin接口, 都可以作为扩展插件执行;
+加载插件需要在配置文件里设置参数Plugin, 值为插件的程序集名称, 只要在任意位置设置一次即可;
+为了方便配置Item, 可以使用PluginAttribute设置插件Key.
+
+程序扩展插件的例子:
+```csharp
+// ...
+using QuickRun.Plugin; // 引用QuickRun.Extension程序集
+
+namespace QuickRun.Extension
+{
+    // 设置插件Key和描述, 用于方便Item配置参数
+    [Plugin("$SetStartup", "设置开机启动")]
+    public class SetStartupPlugin : IPlugin // 实现IPlugin接口
+    {
+        // ...
+
+        public void Execute() // 实现Execute()方法
+        {
+            // ...
+        }
+    }
+}
+```
+
+在配置文件中配置插件:
+```xml
+<Item>
+  <!-- 设置Plugin参数加载插件 -->
+  <Item Name="QuickRun选项" Plugin="QuickRun.Extension">
+    <!-- 使用刚才设置的Key配置插件功能 -->
+    <Item Name="设置开机启动" Key="$SetStartup"/>
+    <Item Name="导出样式模板" Key="$ExportStyle"/>
+    <Item Name="导出配置模板" Key="$ExportDesign"/>
+  </Item>
+</Item>
+```
+
 ## Todo
-- 键盘操作
-- 悬浮窗支持(针对拖拽)
-- 内置命令(及插件?)
-- 高级启动参数
-- 样式进一步支持
 - 写Wiki
+- 悬浮窗支持(针对拖拽)
+- 高级启动参数
+- 编辑器插件化
+- 键盘操作
+- 样式进一步支持

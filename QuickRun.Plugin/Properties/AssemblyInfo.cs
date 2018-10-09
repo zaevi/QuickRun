@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("QuickRun.Plugin")]
-[assembly: AssemblyCopyright("Copyright ©  2018")]
+[assembly: AssemblyCopyright("Copyright © zaevi 2018")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -14,4 +14,4 @@ using System.Runtime.InteropServices;
 
 [assembly: Guid("4ceb48db-b44c-4ccc-a0aa-0a6b073d0212")]
 
-[assembly: AssemblyVersion("0.6.2.1")]
+[assembly: AssemblyVersion("0.7.0.0")]
