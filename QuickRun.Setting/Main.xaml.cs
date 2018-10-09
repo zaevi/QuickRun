@@ -66,14 +66,31 @@ namespace QuickRun.Setting
             parent.Items.Insert(index, node);
         }
 
+        public void Action_RemoveItem(TreeViewItem node)
+        {
+            ItemMap.Remove(node);
+            node.RemoveFromParent();
+        }
+
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            if((sender as Button)?.Tag.ToString() == "Add")
+            if (!((sender as Button).Tag is string tag)) return;
+            if(tag == "Add")
             {
                 if (treeView.SelectedItem is TreeViewItem selected)
                     Action_NewItem(selected.Parent as ItemsControl, selected.IndexOfParent());
                 else
                     Action_NewItem();
+            }
+            else if(tag == "Del")
+            {
+                if (!(treeView.SelectedItem is TreeViewItem selected)) return;
+                if (selected.HasItems)
+                {
+                    MessageBox.Show("请先移除其子项!");
+                    return;
+                }
+                Action_RemoveItem(selected);
             }
         }
 
