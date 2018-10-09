@@ -20,16 +20,16 @@ namespace QuickRun.Extension
     }
 
     [Plugin("$ExportStyle", "导出样式模板")]
-    public class ExportStyleTemplatePlugin : NoDragPlugin
+    public class ExportStyleTemplatePlugin : IPlugin
     {
-        public override void Execute()
+        public void Execute()
             => ExportDialog.Show("styles.xaml", Properties.Resources.styles);
     }
 
     [Plugin("$ExportDesign", "导出配置模板")]
-    public class ExportDesignTemplatePlugin : NoDragPlugin
+    public class ExportDesignTemplatePlugin : IPlugin
     {
-        public override void Execute()
+        public void Execute()
             => ExportDialog.Show("design.xml", Properties.Resources.design);
     }
 }

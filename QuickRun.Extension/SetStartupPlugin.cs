@@ -5,7 +5,7 @@ using System.Windows.Forms;
 namespace QuickRun.Extension
 {
     [Plugin("$SetStartup", "设置开机启动")]
-    class SetStartupPlugin : NoDragPlugin
+    public class SetStartupPlugin : IPlugin
     {
         const string StartupSubKey = @"Software\Microsoft\Windows\CurrentVersion\Run";
 
@@ -13,7 +13,7 @@ namespace QuickRun.Extension
 
         readonly string AppPath = $"\"{typeof(App).Assembly.Location}\" -h";
 
-        public override void Execute()
+        public void Execute()
         {
             var key = Registry.CurrentUser.OpenSubKey(StartupSubKey, true);
 

@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace QuickRun
@@ -21,7 +20,7 @@ namespace QuickRun
                 var assembly = Assembly.Load(path);
                 if (LoadedAssembly.Contains(assembly.FullName))
                     return true;
-                var plugins = assembly.GetTypes().Where(t => t.IsSubclassOf(typeof(Plugin.Plugin)));
+                var plugins = assembly.ExportedTypes.Where(t => typeof(IPlugin).IsAssignableFrom(t));
                 foreach (var pType in plugins)
                 {
                     string key = pType.GetCustomAttribute<PluginAttribute>()?.Key ?? ("$" + pType.FullName);
@@ -33,20 +32,32 @@ namespace QuickRun
             catch { return false; }
         }
 
-        public static Plugin.Plugin ExecutePlugin(Item item, IDataObject dragData=null)
+        public static bool ExecutePlugin(Item item)
         {
             if (!PluginMap.TryGetValue(item.Key, out var pType))
-                return null;
-            var plugin = Activator.CreateInstance(pType) as Plugin.Plugin;
-            plugin.Arguments = item.Arguments;
-            if(dragData != null)
+                return false;
+            var iplugin = Activator.CreateInstance(pType) as IPlugin;
+            if(iplugin is Plugin.Plugin plugin)
+                plugin.Arguments = item.Arguments;
+            iplugin.Execute();
+            return true;
+        }
+
+        public static bool ExecutePlugin(Item item, IDataObject dragData=null)
+        {
+            if (dragData == null) return ExecutePlugin(item);
+            if (!PluginMap.TryGetValue(item.Key, out var pType))
+                return false;
+            var iplugin = Activator.CreateInstance(pType) as IPlugin;
+            if (iplugin is Plugin.Plugin plugin)
             {
+                plugin.Arguments = item.Arguments;
                 plugin.IsDrag = true;
-                if (!plugin.GetDragData(dragData))
-                    return null;
             }
-            plugin.Execute();
-            return plugin;
+            if (!(iplugin is IDragDrop ddPlugin) || !ddPlugin.GetDragData(dragData))
+                return false;
+            iplugin.Execute();
+            return true;
         }
     }
 }
