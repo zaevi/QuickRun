@@ -78,7 +78,7 @@ namespace QuickRun.Setting
             if(tag == "Add")
             {
                 if (treeView.SelectedItem is TreeViewItem selected)
-                    Action_NewItem(selected.Parent as ItemsControl, selected.IndexOfParent());
+                    Action_NewItem(selected.Parent as ItemsControl, selected.IndexOfParent() + 1);
                 else
                     Action_NewItem();
             }
