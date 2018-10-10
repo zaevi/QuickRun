@@ -103,8 +103,6 @@ namespace QuickRun
                 };
             }
 
-            ShowInTaskbar = false;
-
             Notify = new Forms.NotifyIcon() {
                 ContextMenu = new Forms.ContextMenu(),
                 Icon = Properties.Resources.icon_notify,
@@ -120,7 +118,6 @@ namespace QuickRun
 
             backBtn.AllowDrop = true;
             backBtn.PreviewDragOver += Btn_PreviewDragOver;
-            Topmost = true;
 
             PreviewMouseRightButtonUp += (s, me) => Action_ShowFolder(null, true);
         }

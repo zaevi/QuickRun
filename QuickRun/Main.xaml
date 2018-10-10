@@ -1,21 +1,14 @@
 ﻿<Window x:Class="QuickRun.Main"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:QuickRun"
         mc:Ignorable="d"
-        Title="QuickRun" 
-        ResizeMode="NoResize" WindowStyle="None" Height="450" Width="200"
-        Loaded="Window_Loaded" Closed="Window_Closed" ShowInTaskbar="False">
-    <Window.Resources>
-        <Style x:Name="btnStyle" TargetType="Button">
-            <EventSetter Event="Click" Handler="Button_Click"/>
-        </Style>
-    </Window.Resources>
+        Title="QuickRun" ResizeMode="NoResize" WindowStyle="None" Height="450" Width="200"
+        Loaded="Window_Loaded" Closed="Window_Closed"
+        ShowInTaskbar="False" Topmost="True">
     <StackPanel x:Name="mainPanel">
-        <DockPanel x:Name="titleBar" Loaded="TitleBar_Loaded"
-                    Background="DarkGray">
+        <DockPanel x:Name="titleBar" Loaded="TitleBar_Loaded" Background="DarkGray">
             <Button x:Name="backBtn" Click="backBtn_Click" Background="AliceBlue" Content="&lt;" FontSize="16" Padding="10,0" BorderThickness="0"/>
             <Button x:Name="hideBtn" Click="hideBtn_Click" Background="Gray" Content="X" FontSize="16" Padding="10,0" BorderThickness="0" DockPanel.Dock="Right"/>
             <Label x:Name="title" Content="QuickRun"/>
