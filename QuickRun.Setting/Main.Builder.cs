@@ -319,7 +319,10 @@ namespace QuickRun.Setting
         private void treeView_Drop(object sender, DragEventArgs e)
         {
             if (TargetItem == null) return;
-            MoveItem(SourceItem, TargetItem, TargetIndex);
+            if(SourceItem.Parent == TargetItem && SourceItem.IndexOfParent() < TargetIndex)
+                MoveItem(SourceItem, TargetItem, TargetIndex - 1);
+            else
+                MoveItem(SourceItem, TargetItem, TargetIndex);
         }
     }
 
