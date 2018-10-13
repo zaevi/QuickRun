@@ -20,14 +20,22 @@ namespace QuickRun
                 var assembly = Assembly.Load(path);
                 if (LoadedAssembly.Contains(assembly.FullName))
                     return true;
-                var plugins = assembly.ExportedTypes.Where(t => typeof(IPlugin).IsAssignableFrom(t));
-                foreach (var pType in plugins)
+                var name = typeof(IPlugin).Assembly.GetName().Name;
+                if (assembly.GetReferencedAssemblies().Any(a=>a.Name == name))
                 {
-                    string key = pType.GetCustomAttribute<PluginAttribute>()?.Key ?? ("$" + pType.FullName);
-                    PluginMap[key] = pType;
+                    var plugins = assembly.ExportedTypes.Where(t => typeof(IPlugin).IsAssignableFrom(t));
+                    foreach (var pType in plugins)
+                    {
+                        string key = pType.GetCustomAttribute<PluginAttribute>()?.Key ?? ("$" + pType.FullName);
+                        PluginMap[key] = pType;
+                    }
+                    LoadedAssembly.Add(assembly.FullName);
+                    return true;
                 }
-                LoadedAssembly.Add(assembly.FullName);
-                return true;
+                else
+                {
+                    throw new Exception("not support"); // but soon
+                }
             }
             catch { return false; }
         }
