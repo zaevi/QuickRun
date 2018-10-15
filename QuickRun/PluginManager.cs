@@ -88,14 +88,46 @@ namespace QuickRun
     {
         MethodInfo Method = null;
 
+        ParameterInfo[] Parameters = null;
+
+        Exception PluginException = null;
+
         public NonStandardPlugin(MethodInfo method)
         {
             Method = method;
+            Parameters = method.GetParameters();
+            if (Parameters.Length > 2)
+                PluginException = new Exception("参数数量不匹配");
+            if (!Parameters.All(p => (p.ParameterType == typeof(string) || p.ParameterType == typeof(string[]))))
+                PluginException = new Exception("参数类型不匹配");
+        }
+
+        object[] BuildParameters()
+        {
+            if (Parameters.Length == 0)
+                return null;
+            var list = new List<object>();
+            foreach(var param in Parameters)
+            {
+                if (param.ParameterType == typeof(string))
+                    list.Add(Arguments);
+                else if (param.ParameterType == typeof(string[]))
+                    list.Add(FileNames);
+            }
+            return list.ToArray();
         }
 
         public override void Execute()
         {
-            Method?.Invoke(null, null);
+            if (PluginException is null)
+            {
+                var parameters = BuildParameters();
+                Method?.Invoke(null, parameters);
+            }
+            else
+            {
+                throw PluginException;
+            }
         }
     }
 }
