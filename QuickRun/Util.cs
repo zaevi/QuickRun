@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Windows;
+using System.Windows.Input;
 using System.Windows.Media;
 using System.Xml.Linq;
 
@@ -42,5 +43,8 @@ namespace QuickRun
                 return Enum.Parse(type, value);
             return Convert.ChangeType(value, type);
         }
+
+        public static bool HasAny(this Key key, params Key[] keys)
+            => keys.Contains(key);
     }
 }
