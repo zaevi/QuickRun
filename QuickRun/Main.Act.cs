@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace QuickRun
 {
@@ -52,10 +54,18 @@ namespace QuickRun
         }
 
         Stack<string> FolderHistory = new Stack<string>();
+        Dictionary<string, int> FocusedIndex = new Dictionary<string, int>();
 
         public void Action_ShowFolder(string key, bool back=false)
         {
-            if(back)
+            if (CurrentFolder != null && Keyboard.FocusedElement is Button btn)
+            {
+                var idx = Folder[CurrentFolder].Children.IndexOf(btn);
+                if (idx >= 0)
+                    FocusedIndex[CurrentFolder] = idx;
+            }
+
+            if (back)
             {
                 if (FolderHistory.Count == 0) return;
                 key = FolderHistory.Pop();
@@ -64,12 +74,15 @@ namespace QuickRun
             {
                 FolderHistory.Push(CurrentFolder);
             }
-            if (mainPanel.Children.Count > 1)
+            if (mainPanel.Children.Count > 1) // TODO
                 mainPanel.Children.RemoveAt(1);
             mainPanel.Children.Add(Folder[key]);
             title.Content = Folder[key].Name;
             CurrentFolder = key;
             backBtn.Visibility = key == "#0" ? Visibility.Collapsed : Visibility.Visible;
+
+            if (FocusedIndex.TryGetValue(key, out var index) && index < Folder[key].Children.Count)
+                Keyboard.Focus(Folder[key].Children[index]);
         }
     }
 }
