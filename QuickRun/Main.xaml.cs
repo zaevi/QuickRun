@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using Forms = System.Windows.Forms;
 
 namespace QuickRun
@@ -120,6 +121,7 @@ namespace QuickRun
             backBtn.PreviewDragOver += Btn_PreviewDragOver;
 
             PreviewMouseRightButtonUp += (s, me) => Action_ShowFolder(null, true);
+            PreviewKeyDown += Main_PreviewKeyDown;
         }
 
         private void TitleBar_Loaded(object sender, RoutedEventArgs e)
@@ -137,6 +139,28 @@ namespace QuickRun
         {
             Notify.Visible = false;
             Notify?.Dispose();
+        }
+
+        private void Main_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (Keyboard.FocusedElement == this && e.Key.HasAny(Key.Up, Key.Down, Key.Enter))
+            {
+                Folder[CurrentFolder].Children[0].Focus();
+                e.Handled = true;
+            }
+            else if (e.Key == Key.Escape)
+            {
+                Hide();
+            }
+            else if (e.Key.HasAny(Key.Left, Key.Back))
+            {
+                Action_ShowFolder(null, true);
+            }
+            else if (e.Key == Key.Right && Keyboard.FocusedElement is Button btn && btn.Tag.ToString().StartsWith("#"))
+            {
+                Action_ShowFolder(btn.Tag.ToString());
+                e.Handled = true;
+            }
         }
     }
 }
