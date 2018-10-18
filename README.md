@@ -1,11 +1,12 @@
 # QuickRun
 绝赞WIP
 
-这是一个追求简洁的快捷启动器, 你可以将文件/应用程序/网页URL等添加至程序中;
-你可以自定义它们的启动行为, 也能对它们在启动器中的样式进行有限的修改.
-作为开发者, 你还可以为程序开发扩展插件, 进一步提高使用效率
+和所有快捷启动工具一样, 你可以将程序/文件/网页添加进QuickRun中, 配置好启动Uri和各项参数, 在需要的时候点一下就能启动. 另外, 它还有以下特性:
+* 支持拖放数据启动
+* 可自定制界面样式
+* 允许开发插件, 实现你自己想要的功能
 
-目前版本: 0.7.0.0 - [更新日志](ChangeLog.md)
+目前版本: 0.7.2.2 - [更新日志](ChangeLog.md)
 
 ## 程序清单
 - QuickRun.exe - 启动器
@@ -119,10 +120,39 @@ namespace QuickRun.Extension
 </Item>
 ```
 
+### 非标准插件
+对于仅调用或仅传递文件拖拽数据的插件实现, 可以不依赖QuickRun.Plugin接口, 而是用特定命名来实现插件对接:
+```csharp
+// ...
+namespace MyNameSpace
+{
+    [DisplayName("$MyKey")] // 使用DisplayName标记, Key="$MyKey"
+    public class MyTestQuickRun // 也可以命名为MyTestQuickRunPlugin
+    {
+        public static void Execute() // 实现Execute()方法
+        {
+            // ...
+        }
+
+        // 其它四种实现 filenames:拖拽文件数据, arguments:Item的Arguments参数
+        // public static void Execute(string[] filenames);
+        // public static void Execute(string arguments);
+        // public static void Execute(string arguments, string[] filenames);
+        // public static void Execute(string[] filenames, string arguments);
+    }
+
+    // 不使用DisplayName标记, Key="$MyNameSpace.MySecond"
+    // 即此类型的FullName去掉最后的QuickRun(Plugin)
+    public class MySecondQuickRunPlugin
+    {
+        // ...
+    }
+}
+```
+
 ## Todo
 - 写Wiki
 - 悬浮窗支持(针对拖拽)
 - 高级启动参数
 - 编辑器插件化
-- 键盘操作
 - 样式进一步支持
