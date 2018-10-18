@@ -1,8 +1,8 @@
 # 更新日志
 
 ## 0.7.2.2
-- 添加非标准插件支持 #5 
-- 改良键盘操作 #6 
+- 添加非标准插件支持 [#5](https://github.com/Zaeworks/QuickRun/pull/5)
+- 改良键盘操作 [#6](https://github.com/Zaeworks/QuickRun/pull/6)
 - 修复编辑器拖拽错乱的Bug
 - 修复重载配置文件后, 后退可能导致的崩溃问题
 
