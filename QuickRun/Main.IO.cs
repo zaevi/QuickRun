@@ -31,9 +31,9 @@ namespace QuickRun
             });
             Application.Current.Dispatcher.Invoke(() => 
             {
-                FolderHistory.Clear();
                 Action_Load();
                 Action_ShowFolder("#0");
+                FolderHistory.Clear();
             });
         }
 
