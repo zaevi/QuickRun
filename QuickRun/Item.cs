@@ -62,7 +62,10 @@ namespace QuickRun
             {
                 var v = p.GetValue(item);
                 if ((v is string vs && string.IsNullOrEmpty(vs)) || v.Equals(p.GetValue(DefaultItem))) continue;
-                xe.Add(new XAttribute(p.Name, v));
+                if(v is string str && str.Length > 70)
+                    xe.Add(new XElement(p.Name, str));
+                else
+                    xe.Add(new XAttribute(p.Name, v));
             }
             return xe;
         }
