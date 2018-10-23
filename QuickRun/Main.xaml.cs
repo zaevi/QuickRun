@@ -105,7 +105,7 @@ namespace QuickRun
                 {
                     if (FileWatcherFix) { FileWatcherFix = false; return; }
                     FileWatcherFix = true;
-                    Action_Reload(fe.FullPath);
+                    Action_Reload();
                 };
             }
 
