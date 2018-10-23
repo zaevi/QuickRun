@@ -52,6 +52,7 @@ namespace QuickRun
             }
 
             var plugins = new List<string>();
+            var loadedDesign = new HashSet<string>() { Path.GetFullPath(DesignPath) };
             var Map = new Dictionary<string, Item>();
             var Folder = new Dictionary<string, Panel>();
 
@@ -95,10 +96,14 @@ namespace QuickRun
 
                     if (!string.IsNullOrEmpty(item.DesignPath))
                     {
-                        xe = item.ToXElement();
-                        var design = GetPartialDesign(item.DesignPath);
-                        xe.Add(design.Elements(nameof(Item)).ToArray());
-                        xe.Add(ixe.Elements(nameof(Item)).ToArray());
+                        var path = Path.GetFullPath(item.DesignPath);
+                        if (!loadedDesign.Contains(path) && GetPartialDesign(path) is XElement design)
+                        {
+                            xe = item.ToXElement();
+                            xe.Add(design.Elements(nameof(Item)).ToArray());
+                            xe.Add(ixe.Elements(nameof(Item)).ToArray());
+                            loadedDesign.Add(path);
+                        }
                     }
 
                     if (xe.Element(nameof(Item)) != null)
@@ -129,8 +134,12 @@ namespace QuickRun
         public XElement GetPartialDesign(string path)
         {
             if (!File.Exists(path)) return null;
-            var xe = XElement.Load(path);
-            return xe;
+            try
+            {
+                var xe = XElement.Load(path);
+                return xe;
+            }
+            catch { return null; }
         }
 
         public void Action_LoadStyles(string fileName)
