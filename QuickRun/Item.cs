@@ -47,6 +47,9 @@ namespace QuickRun
 
         [DisplayName("插件路径")]
         public string Plugin { get; set; } = "";
+
+        [DisplayName("配置路径")]
+        public string DesignPath { get; set; } = "";
     }
 
     public static class ItemUtil
