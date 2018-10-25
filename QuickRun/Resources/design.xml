@@ -7,6 +7,7 @@
     <Item Name="导出样式模板" Key="$ExportStyle"/>
     <Item Name="导出配置模板" Key="$ExportDesign"/>
     <Item Name="设置开机启动" Key="$SetStartup"/>
+    <Item Name="重载配置" Key="$ReloadDesign"/>
     <Item Name="Back" Type="BackButton" />
   </Item>
 </Item>

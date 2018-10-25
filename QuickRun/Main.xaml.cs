@@ -22,10 +22,15 @@ namespace QuickRun
 
         string CurrentFolder = null;
 
+        public static Main Instance = null;
+
         Forms.NotifyIcon Notify;
 
         public Main()
-            => InitializeComponent();
+        {
+            InitializeComponent();
+            Instance = this;
+        }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
@@ -100,7 +105,7 @@ namespace QuickRun
                 {
                     if (FileWatcherFix) { FileWatcherFix = false; return; }
                     FileWatcherFix = true;
-                    Action_Reload(fe.FullPath);
+                    Action_Reload();
                 };
             }
 

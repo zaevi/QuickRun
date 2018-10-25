@@ -15,7 +15,7 @@ namespace QuickRun
         bool FileWatcherFix = true;
         string DesignPath = null;
 
-        public async void Action_Reload(string path)
+        public async void Action_Reload()
         {
             await Task.Run(() =>
             {
