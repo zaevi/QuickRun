@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -51,6 +52,7 @@ namespace QuickRun
             }
 
             var plugins = new List<string>();
+            var loadedDesign = new HashSet<string>() { Path.GetFullPath(DesignPath) };
             var Map = new Dictionary<string, Item>();
             var Folder = new Dictionary<string, Panel>();
 
@@ -77,8 +79,9 @@ namespace QuickRun
                     Name = xparent.GetAttribute("Name", null) ?? "QuickRun"
                 };
                 Folder[sp.Tag.ToString()] = sp;
-                foreach (var xe in xparent.Elements(nameof(Item)))
+                foreach (var ixe in xparent.Elements(nameof(Item)))
                 {
+                    var xe = ixe;
                     var item = xe.FromXElement();
 
                     var btn = new Button() { Content = item.Name };
@@ -90,6 +93,18 @@ namespace QuickRun
 
                     if (!string.IsNullOrEmpty(item.Plugin))
                         plugins.Add(item.Plugin);
+
+                    if (!string.IsNullOrEmpty(item.DesignPath))
+                    {
+                        var path = Path.GetFullPath(item.DesignPath);
+                        if (!loadedDesign.Contains(path) && GetPartialDesign(path) is XElement design)
+                        {
+                            xe = item.ToXElement();
+                            xe.Add(design.Elements(nameof(Item)).ToArray());
+                            xe.Add(ixe.Elements(nameof(Item)).ToArray());
+                            loadedDesign.Add(path);
+                        }
+                    }
 
                     if (xe.Element(nameof(Item)) != null)
                     {
@@ -114,6 +129,17 @@ namespace QuickRun
 
                 return sp;
             }
+        }
+
+        public XElement GetPartialDesign(string path)
+        {
+            if (!File.Exists(path)) return null;
+            try
+            {
+                var xe = XElement.Load(path);
+                return xe;
+            }
+            catch { return null; }
         }
 
         public void Action_LoadStyles(string fileName)
