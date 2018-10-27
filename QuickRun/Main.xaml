@@ -7,11 +7,17 @@
         Title="QuickRun" ResizeMode="NoResize" WindowStyle="None" Height="450" Width="200"
         Loaded="Window_Loaded" Closed="Window_Closed"
         ShowInTaskbar="False" Topmost="True">
+    <Window.Resources>
+        <DataTemplate x:Key="DefaultTemplate">
+            <Button Content="{Binding Path=Name}" Initialized="Button_Initialized"/>
+        </DataTemplate>
+    </Window.Resources>
     <StackPanel x:Name="mainPanel">
         <DockPanel x:Name="titleBar" Loaded="TitleBar_Loaded" Background="DarkGray">
             <Button x:Name="backBtn" Focusable="False" Click="backBtn_Click" Background="AliceBlue" Content="&lt;" FontSize="16" Padding="10,0" BorderThickness="0"/>
             <Button x:Name="hideBtn" Focusable="False" Click="hideBtn_Click" Background="Gray" Content="X" FontSize="16" Padding="10,0" BorderThickness="0" DockPanel.Dock="Right"/>
             <Label x:Name="title" Content="QuickRun"/>
         </DockPanel>
+        <ItemsControl x:Name="itemsControl" ItemTemplate="{StaticResource DefaultTemplate}"/>
     </StackPanel>
 </Window>
