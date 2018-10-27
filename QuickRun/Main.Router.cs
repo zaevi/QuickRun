@@ -71,9 +71,6 @@ namespace QuickRun
             }
         }
 
-
-        Stack<Item> ItemFolderHistory = new Stack<Item>();
-
         void ShowFolder(Item item, bool back = false)
         {
             if (back)
@@ -90,7 +87,7 @@ namespace QuickRun
             ListingItems.Clear();
             foreach (var it in items)
                 ListingItems.Add(it);
-            title.Content = item.Name;
+            title.Content = (item != RootItem || (item.Name != "Node")) ? item.Name : "QuickRun";
             CurrentItem = item;
             backBtn.Visibility = CurrentItem == RootItem ? Visibility.Collapsed : Visibility.Visible;
         }

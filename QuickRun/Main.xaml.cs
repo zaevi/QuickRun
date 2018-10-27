@@ -25,6 +25,9 @@ namespace QuickRun
 
         public static Main Instance = null;
 
+        Stack<Item> ItemFolderHistory = new Stack<Item>();
+        Dictionary<Item, Item> FocusedItem = new Dictionary<Item, Item>();
+
         Forms.NotifyIcon Notify;
 
         public Main()
@@ -159,7 +162,7 @@ namespace QuickRun
             if (Resources.Contains(item.Style))
                 btn.Style = Resources[item.Style] as Style;
             btn.Click += Button_Click;
-            btn.Tag = item.Key;
+            btn.GotKeyboardFocus += Button_GotKeyboardFocus;
             if (item.Type == ItemType.BackButton || ItemFolder.ContainsKey(item))
             {
                 btn.AllowDrop = true;
@@ -170,8 +173,14 @@ namespace QuickRun
                 btn.AllowDrop = true;
                 btn.PreviewDrop += Btn_PreviewDrop;
             }
+            if (FocusedItem.TryGetValue(CurrentItem, out var fi) && fi == item)
+                btn.Focus();
+            
         }
-        
+
+        private void Button_GotKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
+            => FocusedItem[CurrentItem] = (sender as Button)?.DataContext as Item;
+
         public void FocusItem(int index)
         {
             var container = itemsControl.ItemContainerGenerator.ContainerFromIndex(0) as FrameworkElement;
