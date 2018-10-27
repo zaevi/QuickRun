@@ -18,15 +18,10 @@ namespace QuickRun
 
         readonly string AppData = Environment.ExpandEnvironmentVariables(@"%APPDATA%\QuickRun\");
 
-        public Dictionary<string, Item> Map = new Dictionary<string, Item>();
-        public Dictionary<string, Panel> Folder = new Dictionary<string, Panel>();
-
         public ObservableCollection<Item> ListingItems = new ObservableCollection<Item>();
         public Dictionary<Item, List<Item>> ItemFolder = new Dictionary<Item, List<Item>>();
         public Item RootItem = null;
-        Item CurrentItem = null;
-
-        string CurrentFolder = null;
+        public Item CurrentItem = null;
 
         public static Main Instance = null;
 
@@ -136,9 +131,7 @@ namespace QuickRun
         {
             if (Keyboard.FocusedElement == this && e.Key.HasAny(Key.Up, Key.Down, Key.Enter))
             {
-                var container = itemsControl.ItemContainerGenerator.ContainerFromIndex(0) as FrameworkElement;
-                var button = container.FindVisualChildren<Button>().FirstOrDefault();
-                button?.Focus();
+                FocusItem(0);
                 e.Handled = true;
             }
             else if (e.Key == Key.Escape)
@@ -167,7 +160,28 @@ namespace QuickRun
                 btn.Style = Resources[item.Style] as Style;
             btn.Click += Button_Click;
             btn.Tag = item.Key;
-            if (item.AllowDrop) { btn.AllowDrop = true; btn.PreviewDrop += Btn_PreviewDrop; }
+            if (item.Type == ItemType.BackButton || ItemFolder.ContainsKey(item))
+            {
+                btn.AllowDrop = true;
+                btn.PreviewDragOver += Btn_PreviewDragOver;
+            }
+            else if (item.AllowDrop)
+            {
+                btn.AllowDrop = true;
+                btn.PreviewDrop += Btn_PreviewDrop;
+            }
+        }
+        
+        public void FocusItem(int index)
+        {
+            var container = itemsControl.ItemContainerGenerator.ContainerFromIndex(0) as FrameworkElement;
+            container?.FindVisualChildren<Button>().FirstOrDefault()?.Focus();
+        }
+
+        public void FocusItem(Item item)
+        {
+            var container = itemsControl.ItemContainerGenerator.ContainerFromItem(item) as FrameworkElement;
+            container?.FindVisualChildren<Button>().FirstOrDefault()?.Focus();
         }
     }
 }
