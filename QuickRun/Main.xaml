@@ -9,7 +9,7 @@
         ShowInTaskbar="False" Topmost="True">
     <Window.Resources>
         <DataTemplate x:Key="DefaultTemplate">
-            <Button Content="{Binding Path=Name}" Initialized="Button_Initialized"/>
+            <Button Content="{Binding Path=Name}" Initialized="Button_Initialized" Name="ItemButton"/>
         </DataTemplate>
     </Window.Resources>
     <StackPanel x:Name="mainPanel">
@@ -18,6 +18,6 @@
             <Button x:Name="hideBtn" Focusable="False" Click="hideBtn_Click" Background="Gray" Content="X" FontSize="16" Padding="10,0" BorderThickness="0" DockPanel.Dock="Right"/>
             <Label x:Name="title" Content="QuickRun"/>
         </DockPanel>
-        <ItemsControl x:Name="itemsControl" ItemTemplate="{StaticResource DefaultTemplate}"/>
+        <ItemsControl x:Name="itemsControl" ItemTemplate="{StaticResource DefaultTemplate}" Focusable="False"/>
     </StackPanel>
 </Window>

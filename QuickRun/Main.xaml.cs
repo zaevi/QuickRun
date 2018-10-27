@@ -136,7 +136,10 @@ namespace QuickRun
         {
             if (Keyboard.FocusedElement == this && e.Key.HasAny(Key.Up, Key.Down, Key.Enter))
             {
-                // todo
+                var container = itemsControl.ItemContainerGenerator.ContainerFromIndex(0) as FrameworkElement;
+                var button = container.FindVisualChildren<Button>().FirstOrDefault();
+                button?.Focus();
+                e.Handled = true;
             }
             else if (e.Key == Key.Escape)
             {
