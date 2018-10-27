@@ -16,13 +16,11 @@ namespace QuickRun
         void RouteItem(Item item, IDataObject data=null)
         {
             if (ItemFolder.ContainsKey(item))
-            {
                 ShowFolder(item);
-            }
+            else if (item.Type == ItemType.BackButton)
+                ShowFolder(null, true);
             else if (item.Key.StartsWith("$"))
-            {
                 ExecutePluginItem(item, data);
-            }
             else
                 ExecuteProcessItem(item, data);
         }

@@ -150,6 +150,10 @@ namespace QuickRun
                 if (ItemFolder.ContainsKey(item))
                 {
                     ShowFolder(item);
+                }
+                else if(item.Type == ItemType.BackButton)
+                {
+                    ShowFolder(null, true);
                     e.Handled = true;
                 }
             }
