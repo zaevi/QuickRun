@@ -18,7 +18,6 @@ namespace QuickRun
 
         readonly string AppData = Environment.ExpandEnvironmentVariables(@"%APPDATA%\QuickRun\");
 
-        public ObservableCollection<Item> ListingItems = new ObservableCollection<Item>();
         public Dictionary<Item, IEnumerable<Item>> ItemFolder = new Dictionary<Item, IEnumerable<Item>>();
         public Item RootItem = null;
         public Item CurrentItem = null;
@@ -33,8 +32,6 @@ namespace QuickRun
         public Main()
         {
             InitializeComponent();
-            itemsControl.ItemsSource = ListingItems;
-
             Instance = this;
         }
 
