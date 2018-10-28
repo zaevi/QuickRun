@@ -61,8 +61,8 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Item.cs" />
-    <Compile Include="Main.Act.cs" />
     <Compile Include="Main.IO.cs" />
+    <Compile Include="Main.Router.cs" />
     <Compile Include="PluginManager.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>

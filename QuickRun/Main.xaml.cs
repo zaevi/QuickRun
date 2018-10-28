@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Windows;
@@ -17,39 +18,30 @@ namespace QuickRun
 
         readonly string AppData = Environment.ExpandEnvironmentVariables(@"%APPDATA%\QuickRun\");
 
-        public Dictionary<string, Item> Map = new Dictionary<string, Item>();
-        public Dictionary<string, Panel> Folder = new Dictionary<string, Panel>();
-
-        string CurrentFolder = null;
+        public ObservableCollection<Item> ListingItems = new ObservableCollection<Item>();
+        public Dictionary<Item, IEnumerable<Item>> ItemFolder = new Dictionary<Item, IEnumerable<Item>>();
+        public Item RootItem = null;
+        public Item CurrentItem = null;
 
         public static Main Instance = null;
+
+        Stack<Item> ItemFolderHistory = new Stack<Item>();
+        Dictionary<Item, Item> FocusedItem = new Dictionary<Item, Item>();
 
         Forms.NotifyIcon Notify;
 
         public Main()
         {
             InitializeComponent();
+            itemsControl.ItemsSource = ListingItems;
+
             Instance = this;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            var btn = (sender as Button);
-            if(btn.Tag is string tag)
-            {
-                if(tag.StartsWith("#"))
-                {
-                    Action_ShowFolder(tag);
-                }
-                else if (tag.StartsWith("$"))
-                {
-                    Action_RunPlugin(tag);
-                }
-                else
-                {
-                    Action_RunAction(tag);
-                }
-            }
+            if ((sender as Button).DataContext is Item item)
+                RouteItem(item);
         }
 
 
@@ -72,16 +64,8 @@ namespace QuickRun
 
         private void Btn_PreviewDrop(object sender, DragEventArgs e)
         {
-            if (!((sender as Button).Tag is string tag)) return;
-            if (tag.StartsWith("$"))
-            {
-                Action_RunPlugin(tag, e.Data);
-            }
-            else if (e.Data.GetFormats().Contains("FileName"))
-            {
-                var files = (string[])e.Data.GetData(DataFormats.FileDrop);
-                    Action_RunAction(tag, string.Join(" ", files.Select(f => "\"" + f + "\"")));
-            }
+            if ((sender as Button).DataContext is Item item)
+                RouteItem(item, e.Data);
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -91,7 +75,7 @@ namespace QuickRun
             Directory.CreateDirectory(AppData);
             Action_LoadStyles("styles.xaml");
             Action_Load("design.xml");
-            Action_ShowFolder("#0");
+            ShowFolder(RootItem);
 
             if (DesignPath != null)
             {
@@ -125,7 +109,7 @@ namespace QuickRun
             backBtn.AllowDrop = true;
             backBtn.PreviewDragOver += Btn_PreviewDragOver;
 
-            PreviewMouseRightButtonUp += (s, me) => Action_ShowFolder(null, true);
+            PreviewMouseRightButtonUp += (s, me) => ShowFolder(null, true);
             PreviewKeyDown += Main_PreviewKeyDown;
         }
 
@@ -135,7 +119,7 @@ namespace QuickRun
         }
 
         private void backBtn_Click(object sender, RoutedEventArgs e)
-            => Action_ShowFolder(null, true);
+            => ShowFolder(null, true);
 
         private void hideBtn_Click(object sender, RoutedEventArgs e)
             => Hide();
@@ -150,7 +134,7 @@ namespace QuickRun
         {
             if (Keyboard.FocusedElement == this && e.Key.HasAny(Key.Up, Key.Down, Key.Enter))
             {
-                Folder[CurrentFolder].Children[0].Focus();
+                FocusItem(0);
                 e.Handled = true;
             }
             else if (e.Key == Key.Escape)
@@ -159,13 +143,58 @@ namespace QuickRun
             }
             else if (e.Key.HasAny(Key.Left, Key.Back))
             {
-                Action_ShowFolder(null, true);
+                ShowFolder(null, true);
             }
-            else if (e.Key == Key.Right && Keyboard.FocusedElement is Button btn && btn.Tag.ToString().StartsWith("#"))
+            else if (e.Key == Key.Right && Keyboard.FocusedElement is Button btn && btn.DataContext is Item item)
             {
-                Action_ShowFolder(btn.Tag.ToString());
-                e.Handled = true;
+                if (ItemFolder.ContainsKey(item))
+                {
+                    ShowFolder(item);
+                }
+                else if(item.Type == ItemType.BackButton)
+                {
+                    ShowFolder(null, true);
+                    e.Handled = true;
+                }
             }
+        }
+
+        private void Button_Initialized(object sender, EventArgs e)
+        {
+            var btn = sender as Button;
+            var item = btn.DataContext as Item;
+            if (Resources.Contains(item.Style))
+                btn.Style = Resources[item.Style] as Style;
+            btn.Click += Button_Click;
+            btn.GotKeyboardFocus += Button_GotKeyboardFocus;
+            if (item.Type == ItemType.BackButton || ItemFolder.ContainsKey(item))
+            {
+                btn.AllowDrop = true;
+                btn.PreviewDragOver += Btn_PreviewDragOver;
+            }
+            else if (item.AllowDrop)
+            {
+                btn.AllowDrop = true;
+                btn.PreviewDrop += Btn_PreviewDrop;
+            }
+            if (FocusedItem.TryGetValue(CurrentItem, out var fi) && fi == item)
+                btn.Focus();
+            
+        }
+
+        private void Button_GotKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
+            => FocusedItem[CurrentItem] = (sender as Button)?.DataContext as Item;
+
+        public void FocusItem(int index)
+        {
+            var container = itemsControl.ItemContainerGenerator.ContainerFromIndex(0) as FrameworkElement;
+            container?.FindVisualChildren<Button>().FirstOrDefault()?.Focus();
+        }
+
+        public void FocusItem(Item item)
+        {
+            var container = itemsControl.ItemContainerGenerator.ContainerFromItem(item) as FrameworkElement;
+            container?.FindVisualChildren<Button>().FirstOrDefault()?.Focus();
         }
     }
 }
