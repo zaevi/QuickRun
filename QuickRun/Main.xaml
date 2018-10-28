@@ -9,7 +9,7 @@
         ShowInTaskbar="False" Topmost="True">
     <Window.Resources>
         <DataTemplate x:Key="DefaultTemplate">
-            <Button Content="{Binding Path=Name}" Initialized="Button_Initialized" Name="ItemButton"/>
+            <Button Content="{Binding Path=Name}" Initialized="Button_Initialized"/>
         </DataTemplate>
     </Window.Resources>
     <StackPanel x:Name="mainPanel">

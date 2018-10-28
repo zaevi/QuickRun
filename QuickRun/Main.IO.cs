@@ -54,13 +54,16 @@ namespace QuickRun
             var plugins = new List<string>();
             var loadedDesign = new HashSet<string>() { Path.GetFullPath(DesignPath) };
 
-            var Folder = new Dictionary<Item, List<Item>>();
+            var Folder = new Dictionary<Item, IEnumerable<Item>>();
 
             var rootItem = root.FromXElement();
             ForItem(root, rootItem);
             Task.Run(() => plugins.ForEach(p => PluginManager.LoadPlugin(p)));
+
             ItemFolder = Folder;
             RootItem = rootItem;
+            ItemFolderHistory.Clear();
+            FocusedItem.Clear();
 
             void ForItem(XElement xparent, Item iparent)
             {
@@ -77,17 +80,13 @@ namespace QuickRun
                         var path = Path.GetFullPath(item.DesignPath);
                         if (!loadedDesign.Contains(path) && GetPartialDesign(path) is XElement design)
                         {
-                            //ixe = item.ToXElement();
                             ixe.Add(design.Elements(nameof(Item)).ToArray());
-                            //ixe.Add(ixe.Elements(nameof(Item)).ToArray());
                             loadedDesign.Add(path);
                         }
                     }
 
                     if (ixe.Element(nameof(Item)) != null)
-                    {
                         ForItem(ixe, item);
-                    }
                     
                     itemList.Add(item);
                 }
