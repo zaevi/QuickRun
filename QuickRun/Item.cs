@@ -56,7 +56,8 @@ namespace QuickRun
     {
         static readonly Item DefaultItem = new Item();
 
-        static Dictionary<string, PropertyInfo> Properties = typeof(Item).GetProperties().ToDictionary(p => p.Name, p => p);
+        static Dictionary<string, PropertyInfo> Properties = typeof(Item).GetProperties()
+            .Where(p=>p.CanRead && p.CanWrite).ToDictionary(p => p.Name, p => p);
 
         public static XElement ToXElement(this Item item)
         {
