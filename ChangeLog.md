@@ -1,5 +1,13 @@
 # 更新日志
 
+## 0.7.4.6
+- 重写QuickRun加载和调用Item过程, 采用DataTemplate来控制按钮生成 [#9](https://github.com/Zaeworks/QuickRun/pull/9)
+- 添加分部(外部)配置支持, 添加DesignPath属性 [#7](https://github.com/Zaeworks/QuickRun/pull/7)
+- 添加扩展功能-重载配置 [#8](https://github.com/Zaeworks/QuickRun/pull/8)
+- 修复重载配置后, 目录无法回到主页的Bug
+- 当属性值长度超过70时, 会作为子Element存入配置文件中
+- 现在读写配置文件时只会序列化/反序列化可读可写(CanRead&CanWrite)的Item属性
+
 ## 0.7.2.2
 - 添加非标准插件支持 [#5](https://github.com/Zaeworks/QuickRun/pull/5)
 - 改良键盘操作 [#6](https://github.com/Zaeworks/QuickRun/pull/6)
