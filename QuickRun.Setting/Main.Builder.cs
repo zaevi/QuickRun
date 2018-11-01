@@ -72,7 +72,6 @@ namespace QuickRun.Setting
             var item = e.OldValue as TreeViewItem;
             if (item != null && ItemMap.ContainsKey(item))
             {
-                Action_SaveItem(ItemMap[item]);
                 item.Header = ItemMap[item].Name;
             }
             item = e.NewValue as TreeViewItem;
@@ -86,30 +85,10 @@ namespace QuickRun.Setting
     /// </summary>
     public partial class Main : Window
     {
-        Dictionary<PropertyInfo, PropertyValue> PropertyMap = new Dictionary<PropertyInfo, PropertyValue>();
-
-        private void Action_SaveItem(Item item)
-        {
-            foreach(var pair in PropertyMap)
-            {
-                var oldValue = pair.Key.GetValue(item);
-                var newValue = pair.Value.GetValue();
-                if (pair.Key.PropertyType.IsEnum)
-                    newValue = Enum.ToObject(pair.Key.PropertyType, newValue);
-                if(!oldValue.Equals(newValue))
-                {
-                    Modified = true;
-                    pair.Key.SetValue(item, newValue);
-                }
-            }
-        }
 
         private void Action_LoadItem(Item item)
         {
-            foreach (var pair in PropertyMap)
-            {
-                pair.Value.SetValue(pair.Key.GetValue(item));
-            }
+            propertyGrid.DataContext = item;
         }
 
         private void Grid_Loaded(object sender, RoutedEventArgs e)
@@ -127,58 +106,35 @@ namespace QuickRun.Setting
                 Grid.SetColumn(label, 0);
                 propertyGrid.Children.Add(label);
 
-                var pv = new PropertyValue(property.PropertyType);
-                pv.Element.VerticalAlignment = VerticalAlignment.Center;
-                pv.Element.Margin = new Thickness(5);
-                Grid.SetRow(pv.Element, i);
-                Grid.SetColumn(pv.Element, 1);
-                propertyGrid.Children.Add(pv.Element);
-
-                PropertyMap[property] = pv;
+                var element = AddPropertyElement(property);
+                element.VerticalAlignment = VerticalAlignment.Center;
+                element.Margin = new Thickness(5);
+                Grid.SetRow(element, i);
+                Grid.SetColumn(element, 1);
+                propertyGrid.Children.Add(element);
             }
         }
-    }
 
-    internal class PropertyValue
-    {
-        public Func<object> GetValue;
-        public Action<object> SetValue;
-
-        public event EventHandler ValueModified;
-
-        private void ElementModified(object s, EventArgs e)
-            => ValueModified?.Invoke(s, e);
-
-        public FrameworkElement Element;
-        
-        public PropertyValue(Type type)
+        private FrameworkElement AddPropertyElement(PropertyInfo property)
         {
-            if(type == typeof(string))
+            FrameworkElement element = null;
+            var type = property.PropertyType;
+            if (type == typeof(string))
             {
-                var element = new TextBox();
-                element.TextInput += ElementModified;
-                GetValue = () => element.Text;
-                SetValue = (t) => element.Text = t?.ToString();
-                Element = element;
+                element = new TextBox();
+                element.SetBinding(TextBox.TextProperty, property.Name);
             }
             else if(type == typeof(bool))
             {
-                var element = new CheckBox();
-                element.Click += ElementModified;
-                GetValue = () => element.IsChecked;
-                SetValue = (c) => element.IsChecked = (bool)c;
-                Element = element;
+                element = new CheckBox();
+                element.SetBinding(CheckBox.IsCheckedProperty, property.Name);
             }
             else if(type.IsEnum)
             {
-                var element = new ComboBox();
-                element.SelectionChanged += ElementModified;
-                foreach(var name in Enum.GetNames(type))
-                    element.Items.Add(new ComboBoxItem() { Content = name });
-                GetValue = () => element.SelectedIndex;
-                SetValue = (t) => element.SelectedIndex = (int)t;
-                Element = element;
+                element = new ComboBox() { ItemsSource = Enum.GetValues(type) };
+                element.SetBinding(ComboBox.SelectedValueProperty, property.Name);
             }
+            return element;
         }
     }
 
