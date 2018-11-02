@@ -13,8 +13,6 @@ namespace QuickRun.Setting
 
         readonly string AppData = Environment.ExpandEnvironmentVariables(@"%APPDATA%\QuickRun\");
 
-        Dictionary<TreeViewItem, Item> ItemMap = new Dictionary<TreeViewItem, Item>();
-
         string StyleTemplate;
         string DesignTemplate;
 
@@ -50,7 +48,6 @@ namespace QuickRun.Setting
                 else if (result == MessageBoxResult.Cancel) return false;
             }
             treeView.Items.Clear();
-            ItemMap.Clear();
             return true;
         }
 
@@ -58,19 +55,13 @@ namespace QuickRun.Setting
         {
             parent = parent ?? treeView;
             if (index == -1) index = parent.Items.Count;
-
-            var item = new Item();
-            var node = new TreeViewItem() { Header = item.Name };
-
-            ItemMap[node] = item;
+            var node = new TreeViewItem() { DataContext = new Item() };
+            node.SetBinding(TreeViewItem.HeaderProperty, "Name");
             parent.Items.Insert(index, node);
         }
 
         public void Action_RemoveItem(TreeViewItem node)
-        {
-            ItemMap.Remove(node);
-            node.RemoveFromParent();
-        }
+            => node.RemoveFromParent();
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {

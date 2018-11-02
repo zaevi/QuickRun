@@ -70,13 +70,11 @@ namespace QuickRun.Setting
         private void treeView_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
             var item = e.OldValue as TreeViewItem;
-            if (item != null && ItemMap.ContainsKey(item))
-            {
-                item.Header = ItemMap[item].Name;
-            }
+            if (item != null && item.DataContext is Item _item)
+                item.Header = _item.Name;
             item = e.NewValue as TreeViewItem;
             if (item != null)
-                Action_LoadItem(ItemMap[item]);
+                Action_LoadItem(item.DataContext as Item);
         }
     }
 
