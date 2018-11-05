@@ -24,17 +24,7 @@ namespace QuickRun.Setting
             => (child.Parent as ItemsControl)?.Items.Remove(child);
 
         public static int IndexOfParent(this ItemsControl child)
-        {
-            var parent = child.Parent as ItemsControl;
-            return (parent == null) ? -1 :parent.Items.IndexOf(child);
-        }
-
-        public static object Parse(this Type type, string value)
-        {
-            if (type.IsEnum)
-                return Enum.Parse(type, value);
-            return Convert.ChangeType(value, type);
-        }
+            => (!(child.Parent is ItemsControl parent)) ? -1 : parent.Items.IndexOf(child);
 
         public static string GetExistingPath(string fileName, params string[] folderPath)
             => folderPath.Select(f => Path.Combine(f, fileName)).Where(f => File.Exists(f)).FirstOrDefault();

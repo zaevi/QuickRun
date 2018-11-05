@@ -23,8 +23,8 @@ namespace QuickRun.Setting
                 foreach(var xe in xparent.Elements(nameof(Item)))
                 {
                     var item = xe.FromXElement();
-                    var treeItem = new TreeViewItem() { Header = item.Name };
-                    ItemMap[treeItem] = item;
+                    var treeItem = new TreeViewItem() { DataContext = item };
+                    treeItem.SetBinding(TreeViewItem.HeaderProperty, "Name");
                     parent.Items.Add(treeItem);
                     if (xe.Element(nameof(Item))!=null)
                         ForItem(xe, treeItem);
@@ -44,7 +44,7 @@ namespace QuickRun.Setting
                 XElement xe;
                 if (treeItem is TreeViewItem)
                 {
-                    xe = ItemMap[treeItem as TreeViewItem].ToXElement();
+                    xe = (treeItem.DataContext as Item).ToXElement();
                 }
                 else
                     xe = new XElement("Item");
