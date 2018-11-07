@@ -37,7 +37,8 @@ namespace QuickRun
                 if (data.GetFormats().Contains("FileName"))
                 {
                     var files = (string[])data.GetData(DataFormats.FileDrop);
-                    startInfo.Arguments += (startInfo.Arguments == "" ? "" : " ") + string.Join(" ", files);
+                    var fileNames = string.Join(" ", files.Select(f => $"\"{f}\""));
+                    startInfo.Arguments = string.Join(" ", startInfo.Arguments, fileNames);
                 }
             }
             if (File.Exists(startInfo.FileName))
