@@ -1,5 +1,9 @@
 # 更新日志
 
+## 0.7.4.8
+- 优化编辑器
+- 修复版本`0.7.4.6`中, 文件拖拽至进程Item无效的问题
+
 ## 0.7.4.6
 - 重写QuickRun加载和调用Item过程, 采用DataTemplate来控制按钮生成 [#9](https://github.com/Zaeworks/QuickRun/pull/9)
 - 添加分部(外部)配置支持, 添加DesignPath属性 [#7](https://github.com/Zaeworks/QuickRun/pull/7)

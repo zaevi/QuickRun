@@ -18,4 +18,4 @@ using System.Windows;
     ResourceDictionaryLocation.SourceAssembly
 )]
 
-[assembly: AssemblyVersion("0.7.4.6")]
+[assembly: AssemblyVersion("0.7.4.8")]
