@@ -86,11 +86,10 @@ namespace QuickRun
 
     class NonStandardPlugin : FileDropPlugin
     {
-        MethodInfo Method = null;
+        readonly MethodInfo Method = null;
 
         ParameterInfo[] Parameters = null;
-
-        Exception PluginException = null;
+        readonly Exception PluginException = null;
 
         public NonStandardPlugin(MethodInfo method)
         {

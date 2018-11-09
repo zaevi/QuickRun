@@ -1,13 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Input;
-using Forms = System.Windows.Forms;
 
 namespace QuickRun
 {
@@ -54,7 +49,6 @@ namespace QuickRun
             {
                 MessageBox.Show($"{e.GetType().Name}:\n{e.Message}", "Error");
             }
-            
         }
 
         void ExecutePluginItem(Item item, IDataObject data=null)
@@ -69,8 +63,6 @@ namespace QuickRun
                 MessageBox.Show($"{e.GetType().Name}:\n{e.Message}", "Error");
             }
         }
-
-
 
         void ShowFolder(Item item, bool back = false)
         {
