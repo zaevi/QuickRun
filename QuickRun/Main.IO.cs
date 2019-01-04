@@ -51,7 +51,8 @@ namespace QuickRun
             }
 
             var plugins = new List<string>();
-            var loadedDesign = new HashSet<string>() { Path.GetFullPath(DesignPath) };
+            var loadedDesign = new HashSet<string>();
+            if (DesignPath != null) loadedDesign.Add(DesignPath);
 
             var Folder = new Dictionary<Item, IEnumerable<Item>>();
 
