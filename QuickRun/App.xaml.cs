@@ -13,5 +13,11 @@ namespace QuickRun
     /// </summary>
     public partial class App : Application
     {
+        private static bool? isPluginSupported;
+        public static bool IsPluginSupported { get {
+                if (!isPluginSupported.HasValue)
+                    isPluginSupported = System.IO.File.Exists("QuickRun.Plugin.dll");
+                return isPluginSupported.Value;
+            } }
     }
 }

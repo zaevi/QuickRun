@@ -58,7 +58,9 @@ namespace QuickRun
 
             var rootItem = root.FromXElement();
             ForItem(root, rootItem);
-            Task.Run(() => plugins.ForEach(p => PluginManager.LoadPlugin(p)));
+
+            if(App.IsPluginSupported)
+                Task.Run(() => plugins.ForEach(p => PluginManager.LoadPlugin(p)));
 
             ItemFolder = Folder;
             RootItem = rootItem;
