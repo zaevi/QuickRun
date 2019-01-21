@@ -19,6 +19,8 @@ namespace QuickRun
         {
             await Task.Run(() =>
             {
+                if (DesignPath == null)
+                    return;
                 while (true)
                 {
                     try
@@ -31,7 +33,7 @@ namespace QuickRun
             });
             Application.Current.Dispatcher.Invoke(() => 
             {
-                Action_Load();
+                Action_Load("design.xml");
                 ShowFolder(RootItem);
                 ItemFolderHistory.Clear();
             });
