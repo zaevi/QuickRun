@@ -1,4 +1,5 @@
-﻿using System;
+﻿using QuickRun.Windows.Components;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,8 +20,15 @@ namespace QuickRun.SDK
 
         public override void OnClick(object sender, RoutedEventArgs e)
         {
-            //XElement.Parse("").remove
-            Main.Instance.ShowFolder(this);
+            
         }
+
+        public override void OnInitialized(object sender, EventArgs e)
+        {
+            base.OnInitialized(sender, e);
+            Control.AllowDrop = true;
+            Control.PreviewDragOver += App.Current.Navigator.Btn_PreviewDragOver;
+        }
+
     }
 }

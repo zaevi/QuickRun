@@ -43,7 +43,7 @@ namespace QuickRun.SDK
         public event EventHandler Removed;
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public void OnInitialized(object sender, EventArgs e)
+        public virtual void OnInitialized(object sender, EventArgs e)
         {
             if (!(sender is System.Windows.Controls.Button button)) return;
 
