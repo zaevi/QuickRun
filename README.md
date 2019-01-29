@@ -6,7 +6,9 @@
 * 可自定制界面样式
 * 允许开发插件, 实现你自己想要的功能
 
-目前版本: 0.7.4.8 - [更新日志](ChangeLog.md)
+稳定版本: [0.7.x](https://github.com/Zaeworks/QuickRun/tree/0.7)
+
+开发中: [0.8](https://github.com/Zaeworks/QuickRun/tree/dev_0.8)
 
 ## 程序清单
 - QuickRun.exe - 启动器
