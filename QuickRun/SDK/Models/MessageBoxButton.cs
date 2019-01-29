@@ -8,6 +8,7 @@ using Forms = System.Windows.Forms;
 
 namespace QuickRun.SDK
 {
+    [Config]
     public class MessageBoxButton : BaseButton
     {
         [Config("消息")]

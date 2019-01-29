@@ -13,7 +13,7 @@ namespace QuickRun.SDK
 
         public static ConfigProperty[] GetConfigProperties(Type type)
         {
-            if (!(type is IButton)) return new ConfigProperty[] { };
+            if (!(typeof(IButton).IsAssignableFrom(type))) return new ConfigProperty[] { };
 
             if (TypeConfigProperties.TryGetValue(type, out var array))
                 return array;

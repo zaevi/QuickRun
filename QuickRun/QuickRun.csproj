@@ -62,12 +62,13 @@
     </ApplicationDefinition>
     <Compile Include="SDK\Data\XmlDataStorage.cs" />
     <Compile Include="SDK\Interfaces\IDataStorage.cs" />
+    <Compile Include="SDK\Models\ConfigButton.cs" />
     <Compile Include="SDK\Models\Folder.cs" />
     <Compile Include="SDK\Models\MessageBoxButton.cs" />
     <Compile Include="SDK\Static\ButtonFactory.cs" />
     <Compile Include="SDK\Static\ConfigHelper.cs" />
     <Compile Include="SDK\Static\DataStorageFactory.cs" />
-    <Compile Include="Utils\ButtonTypeHelper.cs" />
+    <Compile Include="Windows\Components\ButtonMenu.cs" />
     <Compile Include="Windows\Components\Navigator.cs" />
     <Compile Include="Windows\Config.xaml.cs">
       <DependentUpon>Config.xaml</DependentUpon>

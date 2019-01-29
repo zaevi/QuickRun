@@ -29,6 +29,8 @@ namespace QuickRun.Windows
 
         public Navigator Navigator => App.Current.Navigator;
 
+        public bool EditMode => Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl);
+
         public Main()
         {
             InitializeComponent();
@@ -57,9 +59,6 @@ namespace QuickRun.Windows
             if (Environment.GetCommandLineArgs().Contains("-h")) Hide();
 
             Directory.CreateDirectory(AppData);
-            //Action_LoadStyles("styles.xaml");
-            //Action_Load("design.xml");
-            //ShowFolder(RootItem);
 
             Notify = new Forms.NotifyIcon()
             {
@@ -78,8 +77,7 @@ namespace QuickRun.Windows
             backBtn.AllowDrop = true;
             backBtn.PreviewDragOver += Btn_PreviewDragOver;
 
-            PreviewMouseRightButtonUp += (s, me) => Navigator.Back();
-            //PreviewKeyDown += Main_PreviewKeyDown;
+            PreviewMouseRightButtonUp += (s, me) => { if (EditMode) ButtonMenu.Instance.IsOpen = true; else Navigator.Back(); };
         }
 
         private void TitleBar_Loaded(object sender, RoutedEventArgs e)

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace QuickRun.SDK
 {
+    [Config]
     public class Folder : BaseFolder
     {
 

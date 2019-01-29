@@ -5,21 +5,22 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
         Title="ConfigForm" Height="450" Width="400"
-        ResizeMode="NoResize" WindowStyle="None">
-    <StackPanel x:Name="mainPanel">
-        <DockPanel x:Name="titleBar" Background="DarkGray">
+        ResizeMode="NoResize" WindowStyle="None" SizeToContent="Height">
+    <DockPanel x:Name="mainPanel">
+        <DockPanel x:Name="titleBar" Background="DarkGray" DockPanel.Dock="Top">
             <Button x:Name="closeBtn" Focusable="False" Background="Gray" Content="X" FontSize="16" Padding="10,0" BorderThickness="0" DockPanel.Dock="Right"/>
             <Label x:Name="titleLabel" Content="Config"/>
         </DockPanel>
-        <ScrollViewer HorizontalScrollBarVisibility="Auto">
-            <Grid x:Name="dataGrid">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition Width="auto"/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
-                <GridSplitter Grid.Column="1" Width="2" HorizontalAlignment="Stretch"/>
-            </Grid>
-        </ScrollViewer>
-    </StackPanel>
+        <DockPanel DockPanel.Dock="Bottom" Margin="20,0,20,20">
+            <!--<Button/>-->
+        </DockPanel>
+        <Grid x:Name="dataGrid" Height="Auto" Width="Auto" Margin="20,20,20,10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="3*"/>
+            </Grid.ColumnDefinitions>
+            <GridSplitter Grid.RowSpan="99" Grid.Column="1" Width="2" HorizontalAlignment="Stretch" Background="White"/>
+        </Grid>
+    </DockPanel>
 </Window>

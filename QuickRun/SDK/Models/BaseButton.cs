@@ -9,6 +9,7 @@ using System.Xml.Serialization;
 
 namespace QuickRun.SDK
 {
+    [Config]
     public class BaseButton : IButton, INotifyPropertyChanged
     {
         private IDataProvider _dataProvider;

@@ -11,6 +11,8 @@ namespace QuickRun.SDK
     {
         public string Name { get; set; }
 
+        public ConfigAttribute() { }
+
         public ConfigAttribute(string name)
         {
             Name = name;

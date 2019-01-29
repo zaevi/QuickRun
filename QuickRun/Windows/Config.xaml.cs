@@ -53,14 +53,14 @@ namespace QuickRun.Windows
 
             var configProperties = ConfigHelper.GetConfigProperties(type);
 
-            for (int i = 1; i < configProperties.Length; i++)
+            for (int i = 0; i < configProperties.Length; i++)
                 dataGrid.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(0, GridUnitType.Auto) });
 
             for (int i = 0; i < configProperties.Length; i++)
             {
                 var property = configProperties[i];
 
-                var label = new Label() { Content = property.Name, ToolTip = property.Key };
+                var label = new Label() { Content = property.Name, ToolTip = property.Key, HorizontalAlignment = HorizontalAlignment.Right };
                 Grid.SetRow(label, i);
                 Grid.SetColumn(label, 0);
                 dataGrid.Children.Add(label);
