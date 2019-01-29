@@ -14,7 +14,7 @@ namespace QuickRun.Windows.Components
     {
         private Stack<IFolder> FolderHistory = new Stack<IFolder>();
 
-        public virtual Main Main { get => _main; set { _main = value; Main.PreviewKeyDown += Main_PreviewKeyDown; } }
+        public Main Main { get => _main; set { _main = value; Main.PreviewKeyDown += Main_PreviewKeyDown; } }
 
         public IFolder RootFolder { get; set; }
 

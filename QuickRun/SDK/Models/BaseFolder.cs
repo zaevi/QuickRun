@@ -14,13 +14,18 @@ namespace QuickRun.SDK
     {
         public virtual IEnumerable<IButton> Buttons { get; }
 
+        [Config("标题")]
         public virtual string Title { get; set; }
 
-        public event EventHandler ItemAdded;
+        public virtual event EventHandler ItemAdded;
+
+        public virtual void AddChild(IButton button) { }
+
+        public virtual void LoadChild(IButton button) { }
 
         public override void OnClick(object sender, RoutedEventArgs e)
         {
-            
+            App.Current.Navigator.ShowFolder(this);
         }
 
         public override void OnInitialized(object sender, EventArgs e)

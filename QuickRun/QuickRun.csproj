@@ -60,7 +60,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="SDK\ConfigHelper.cs" />
+    <Compile Include="SDK\Data\XmlDataStorage.cs" />
+    <Compile Include="SDK\Interfaces\IDataStorage.cs" />
+    <Compile Include="SDK\Models\Folder.cs" />
+    <Compile Include="SDK\Models\MessageBoxButton.cs" />
+    <Compile Include="SDK\Static\ButtonFactory.cs" />
+    <Compile Include="SDK\Static\ConfigHelper.cs" />
+    <Compile Include="SDK\Static\DataStorageFactory.cs" />
     <Compile Include="Utils\ButtonTypeHelper.cs" />
     <Compile Include="Windows\Components\Navigator.cs" />
     <Compile Include="Windows\Config.xaml.cs">
@@ -76,8 +82,8 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="SDK\Attributes\ConfigAttribute.cs" />
-    <Compile Include="SDK\DataProviders\MemoryDataProvider.cs" />
-    <Compile Include="SDK\DataProviders\XmlDataProvider.cs" />
+    <Compile Include="SDK\Data\MemoryDataProvider.cs" />
+    <Compile Include="SDK\Data\XmlDataProvider.cs" />
     <Compile Include="SDK\Interfaces\IButton.cs" />
     <Compile Include="SDK\Interfaces\IDataProvider.cs" />
     <Compile Include="SDK\Interfaces\IFolder.cs" />

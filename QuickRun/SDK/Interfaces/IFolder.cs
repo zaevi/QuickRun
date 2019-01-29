@@ -13,5 +13,9 @@ namespace QuickRun.SDK
         IEnumerable<IButton> Buttons { get; }
 
         event EventHandler ItemAdded;
+
+        void AddChild(IButton button);
+
+        void LoadChild(IButton button);
     }
 }

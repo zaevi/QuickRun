@@ -27,7 +27,7 @@ namespace QuickRun.Windows
 
         Forms.NotifyIcon Notify;
 
-        public Navigator Navigator;
+        public Navigator Navigator => App.Current.Navigator;
 
         public Main()
         {

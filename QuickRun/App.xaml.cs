@@ -5,6 +5,8 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Navigation;
+using QuickRun.SDK;
 using QuickRun.Windows;
 using QuickRun.Windows.Components;
 
@@ -29,9 +31,29 @@ namespace QuickRun
 
         public Navigator Navigator { get; set; }
 
+        public IDataStorage DataStorage { get; set; }
+
         /// <summary>
         /// QuickRun 主窗口
         /// </summary>
         public new Windows.Main MainWindow => base.MainWindow as Windows.Main;
+
+        protected override void OnStartup(StartupEventArgs e)
+        {
+            base.OnStartup(e);
+        }
+
+        protected override void OnActivated(EventArgs e)
+        {
+            base.OnActivated(e);
+            LoadDataStorage("design.xml");
+        }
+
+        public void LoadDataStorage(string path)
+        {
+            DataStorage = DataStorageFactory.InstanceXmlDataStorage(path);
+            Navigator = new Navigator { RootFolder = DataStorage.RootFolder, Main = MainWindow };
+            Navigator.SetFolder(Navigator.RootFolder);
+        }
     }
 }

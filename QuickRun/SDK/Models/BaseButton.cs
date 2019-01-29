@@ -23,6 +23,7 @@ namespace QuickRun.SDK
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(key));
         }
 
+        [Config("Id")]
         public string Id
         {
             get => GetValue<string>("Id");

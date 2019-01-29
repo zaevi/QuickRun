@@ -9,7 +9,7 @@ namespace QuickRun.SDK
 {
     public class XmlDataProvider : IDataProvider
     {
-        public XElement Element;
+        public XElement Element { get; set; }
 
         public T Get<T>(string key)
         {
