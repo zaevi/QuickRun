@@ -17,6 +17,9 @@ namespace QuickRun.SDK
         public T GetValue<T>(string key)
             => DataProvider.Get<T>(key);
 
+        public string GetValue(string key)
+            => DataProvider.Get<string>(key);
+
         public void SetValue<T>(string key, T value)
         {
             DataProvider.Set(key, value);
@@ -47,7 +50,7 @@ namespace QuickRun.SDK
         public virtual void OnInitialized(object sender, EventArgs e)
         {
             if (!(sender is System.Windows.Controls.Button button)) return;
-
+            
             Control = button;
             button.Click += OnClick;
         }

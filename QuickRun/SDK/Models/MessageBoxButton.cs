@@ -19,7 +19,7 @@ namespace QuickRun.SDK
 
         public override void OnClick(object sender, RoutedEventArgs e)
         {
-            Forms.MessageBox.Show(Message, "", Forms.MessageBoxButtons.OK, Forms.MessageBoxIcon.None);
+            Task.Run(() => Forms.MessageBox.Show(Message, "", Forms.MessageBoxButtons.OK, Forms.MessageBoxIcon.None));
         }
     }
 }

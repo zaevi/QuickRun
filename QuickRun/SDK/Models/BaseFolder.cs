@@ -15,7 +15,11 @@ namespace QuickRun.SDK
         public virtual IEnumerable<IButton> Buttons { get; }
 
         [Config("标题")]
-        public virtual string Title { get; set; }
+        public virtual string Title
+        {
+            get => GetValue<string>("Title");
+            set => SetValue("Title", value);
+        }
 
         public virtual event EventHandler ItemAdded;
 

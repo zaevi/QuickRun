@@ -5,6 +5,7 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Markup;
 using System.Windows.Navigation;
 using QuickRun.SDK;
 using QuickRun.Windows;
@@ -47,6 +48,7 @@ namespace QuickRun
         {
             base.OnActivated(e);
             LoadDataStorage("design.xml");
+            LoadStyles(null);
         }
 
         public void LoadDataStorage(string path)
@@ -54,6 +56,12 @@ namespace QuickRun
             DataStorage = DataStorageFactory.InstanceXmlDataStorage(path);
             Navigator = new Navigator { RootFolder = DataStorage.RootFolder, Main = MainWindow };
             Navigator.SetFolder(Navigator.RootFolder);
+        }
+
+        public void LoadStyles(string path)
+        {
+            var resource = XamlReader.Parse(QuickRun.Properties.Resources.styles) as ResourceDictionary;
+            MainWindow.Resources.MergedDictionaries.Add(resource);
         }
     }
 }

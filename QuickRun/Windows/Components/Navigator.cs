@@ -16,6 +16,8 @@ namespace QuickRun.Windows.Components
 
         public Main Main { get => _main; set { _main = value; Main.PreviewKeyDown += Main_PreviewKeyDown; } }
 
+        public bool CanBack => FolderHistory.Count > 0;
+
         public IFolder RootFolder { get; set; }
 
         public IFolder CurrentFolder { get; set; }
@@ -30,13 +32,14 @@ namespace QuickRun.Windows.Components
         public void SetFolder(IFolder folder)
         {
             Main.itemsControl.ItemsSource = folder.Buttons;
-            Main.title.Content = folder.Title ?? "";
+            Main.title.Content = folder.Title ?? folder.Name;
+            Main.backBtn.Visibility = CanBack ? Visibility.Visible : Visibility.Collapsed;
             CurrentFolder = folder;
         }
 
         public void Back()
         {
-            if (FolderHistory.Count == 0) return;
+            if (!CanBack) return;
             var folder = FolderHistory.Pop();
             SetFolder(folder);
         }
